@@ -8,7 +8,7 @@ import Interface as inf
 import helper
 
 # startup app
-window, change_data_tab, ctr_home_tab,scrollable_frame = inf.startup()
+window, change_data_tab, ctr_home_tab,scrollable_frame,directory_input = inf.startup()
 
 change_data_value = []
 
@@ -54,13 +54,5 @@ def set_value_test():
   value = entry_input[0].row
   print(value.get())
 
-
-# AddButton = Button(window, text ="Add value", command = lambda:inf.add_change_data_click_handler(scrollable_frame))
-# AddButton.place(x=4,y=60)
-
-# AddValue = Button(window, text ="Add Row", command = inf.add_row_value_input_handler)
-# AddValue.place(x=60,y=60)
-executeButton = Button(window, text ="Add value", command = lambda:inf.add_change_data_click_handler(change_data_tab))
-executeButton.pack(side=BOTTOM)
 
 window.mainloop()

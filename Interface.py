@@ -1,9 +1,11 @@
-import bussiness as bsn
+import xlsxhandler as xlsxHdler
 from tkinter import *
 import tkinter.filedialog
 from tkinter import ttk
 import helper as HELPER
 import InputData as data
+
+selected_directory = ""
 
 def create_main_window():
 	main_window = Tk()
@@ -35,13 +37,16 @@ def display_directory_input(window):
 	input_directory = Entry(border_color)
 	border_color.pack(padx=1,pady=1,fill='x',side=LEFT,expand=TRUE)
 	input_directory.pack(padx=1,pady=1,fill='x')
+	global selected_directory
+	selected_directory = input_directory
 	button = Button(pane,text = "Select",background = "white", fg = "black",command=lambda:select_working_directory(input_directory))
 	button.pack(side=LEFT,pady=4,padx=12);
+
 
 def display_change_data_content_tab(tab1):
 	container = Frame(tab1,background="red")
 	height = HELPER.WINDOW_SIZE.split("x")[1]
-	canvas = Canvas(container,background="red",height=(int(height)-100))
+	canvas = Canvas(container,background="white",height=(int(height)-90))
 	scrollbar = Scrollbar(container, orient="vertical", command=canvas.yview)
 	scrollable_frame = Frame(canvas)
 	scrollable_frame.bind(
@@ -59,42 +64,83 @@ def display_change_data_content_tab(tab1):
 	# AddButton = Button(container, text ="Add value", command = lambda:add_change_data_click_handler(scrollable_frame))
 	# AddButton.place(x=4,y=4)
 	# add_change_data_click_handler(scrollable_frame)
-	add_change_data_click_handler(scrollable_frame)
+	add_change_data_click_handler(scrollable_frame,1)
 	for i in data.change_data:
-		i.cell.pack()
+		i.frame.pack()
 	return scrollable_frame
 
-def reload_change_data_list():
-	for i in data.change_data:
-		i.cell.pack()
+# optimize this
+def reload_change_data_list(scrollable_frame):
+	for frame in scrollable_frame.winfo_children():
+		frame.pack_forget()
+	for change_data in data.change_data:
+		change_data.frame.pack()
 
 def execute_change_data():
-	current_frame = data.change_data[0].row.winfo_children()
-	for change_value in current_frame:
-		print(change_value.get())
+	for current_frame in data.change_data:
+		current_value = current_frame.frame.winfo_children()
+		# for change_value in current_value:
+			# if isinstance(change_value, Entry):
+			# print(change_value.get())
+		data.excel_change_data_list.append(
+			data.ExcelChangeData(current_value[0].get(),current_value[1].get()),
+		)
+	global selected_directory
+	xlsxHdler.change_data(data.excel_change_data_list,selected_directory)
 
-def add_change_data_click_handler(scrollable_frame):
+
+def remove_change_data_click_handler(scrollable_frame, remove_data):
+	data.change_data.remove(remove_data)
+	if(len(data.change_data) == 0):
+		add_change_data_click_handler(scrollable_frame,1)
+		return
+	reload_change_data_list(scrollable_frame)
+
+def add_change_data_click_handler(scrollable_frame,add_item):
 	test = Frame(scrollable_frame)
 	cell = Entry(test,font=("Arial", 11, "normal"),width=12 )
 	cell.pack(side=LEFT)
 	value = Entry(test,font=("Arial", 11, "normal"),width=12)
 	value.pack(side=LEFT)
-	Button(test,text="Add New",command=lambda:add_change_data_click_handler(scrollable_frame)).pack(side=LEFT)
-	data.change_data.append(
-		data.InputData(
-			test
-		)
-	)
-	reload_change_data_list()
+	add_change_item =  data.InputData(test)
+	Button(test,text="+",command=lambda:add_change_data_click_handler(scrollable_frame,add_change_item),padx=6,pady=2).pack(side=LEFT)
+	Button(test,text="-",command=lambda:remove_change_data_click_handler(scrollable_frame, add_change_item),padx=6,pady=2).pack(side=LEFT)
+	if add_item == 1:
+		data.change_data.append(add_change_item)
+	else :
+		insert_after = data.change_data.index(add_item)
+		data.change_data.insert(insert_after + 1,add_change_item)
+	reload_change_data_list(scrollable_frame)
 
+def print_selection(value):
+  print(value.get())
+
+def display_execute_content_tab(window):
+	execute_frame = Frame(window)
+	execute_frame.pack(side=BOTTOM,fill=BOTH,expand=True)
+
+	Label(execute_frame,text="Select sheet:").grid(row=0, column=1, sticky="e",pady=2)
+
+	selected_page = Entry(execute_frame,width=8)
+	selected_page.delete(0,END)
+	selected_page.insert(0,1)
+	selected_page.grid(row=0, column=2, sticky="n",pady=2)
+
+	is_all_sheet = IntVar()
+	is_all_sheet_checker = Checkbutton(execute_frame, text='Every sheet',variable=is_all_sheet, onvalue=1, offvalue=0, command=lambda:print_selection(is_all_sheet))
+	is_all_sheet_checker.grid(row=0, column=4, sticky="e",pady=2)
+
+	executeButton = Button(execute_frame, text ="Execute", command = execute_change_data)
+	executeButton.grid(row=0, column=6, sticky="s",pady=2)
 
 
 def startup():
 	window = create_main_window()
-	display_directory_input(window)
+	directory_input = display_directory_input(window)
 	change_data_tab, ctr_home_tab = display_tab(window)
 	scrollable_frame = display_change_data_content_tab(change_data_tab)
-	return window, change_data_tab, ctr_home_tab,scrollable_frame
+	display_execute_content_tab(window)
+	return window, change_data_tab, ctr_home_tab,scrollable_frame,directory_input
 
 
 
