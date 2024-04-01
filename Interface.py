@@ -11,7 +11,6 @@ def create_main_window():
 	# main_window.state('zoomed')
 	main_window.geometry(HELPER.WINDOW_SIZE)
 	main_window.title(HELPER.APP_NAME)
-
 	return main_window
 
 def select_working_directory(input_directory:Entry):
@@ -30,7 +29,7 @@ def display_tab(window):
 
 def display_directory_input(window):
 	pane = Frame(window)
-	pane.pack(fill = 'x')
+	pane.pack(fill = BOTH)
 	Label(pane,text="Directory").pack(side=LEFT,pady=4,padx=4)
 	border_color = Frame(pane, background="gray")
 	input_directory = Entry(border_color)
@@ -39,36 +38,45 @@ def display_directory_input(window):
 	button = Button(pane,text = "Select",background = "white", fg = "black",command=lambda:select_working_directory(input_directory))
 	button.pack(side=LEFT,pady=4,padx=12);
 
-def display_change_data_content_tab():
-	for change_value in data.change_data:
-		change_value.row.pack();
-		# change_value.column.pack();
-		# change_value.value.pack();
+def display_change_data_content_tab(tab1):
+	container = Frame(tab1,background="red")
+	height = HELPER.WINDOW_SIZE.split("x")[1]
+	canvas = Canvas(container,background="red",height=(int(height)-100))
+	scrollbar = Scrollbar(container, orient="vertical", command=canvas.yview)
+	scrollable_frame = Frame(canvas)
+	scrollable_frame.bind(
+		"<Configure>",
+		lambda e: canvas.configure(
+			scrollregion=canvas.bbox("all")
+		)
+	)
+	canvas.create_window((0, 0), window=scrollable_frame, anchor="nw")
+	canvas.configure(yscrollcommand=scrollbar.set)
+	# for i in range(50):
+	# 	test = Frame(scrollable_frame)
+	# 	test.pack()
+	# 	ttk.Entry(test).pack(side="left")
+	container.pack(fill="both",)
+	canvas.pack(side="left", fill=BOTH, expand=True)
+	scrollbar.pack(side="right", fill="y")
+	return scrollable_frame
 
 def execute_change_data():
 	current_frame = data.change_data[0].row.winfo_children()
 	for change_value in current_frame:
 		print(change_value.get())
 
-def add_change_data_click_handler(window):
-	pane = Frame(window);
-	Entry(pane, width=8,relief="solid",font=('Arial', 11, 'normal')).pack(padx=4,pady=4,side=LEFT,expand=TRUE)
-	Entry(pane, width=8,relief="solid",font=('Arial', 11, 'normal')).pack(padx=4,pady=4,side=LEFT,expand=TRUE)
-	Entry(pane, width=8,relief="solid",font=('Arial', 11, 'normal')).pack(padx=4,pady=4,side=LEFT,expand=TRUE)
-
-	data.change_data.append(
-		data.InputData(
-			pane
-		)
-	)
-	display_change_data_content_tab()
+def add_change_data_click_handler(scrollable_frame):
+	test = Frame(scrollable_frame)
+	test.pack()
+	ttk.Entry(test).pack(side="left")
 
 def startup():
 	window = create_main_window()
 	display_directory_input(window)
 	change_data_tab, ctr_home_tab = display_tab(window)
-	display_change_data_content_tab()
-	return window, change_data_tab, ctr_home_tab
+	scrollable_frame = display_change_data_content_tab(change_data_tab)
+	return window, change_data_tab, ctr_home_tab,scrollable_frame
 
 
 
