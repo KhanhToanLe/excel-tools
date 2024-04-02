@@ -1,42 +1,39 @@
-import tkinter as tk
-from tkinter import ttk
-
-root = tk.Tk()
-
-tabControl = ttk.Notebook(root) 
-tab1 = ttk.Frame(tabControl)
-tab2 = ttk.Frame(tabControl)
-tabControl.add(tab1, text ='Change Data') 
-tabControl.add(tab2, text ='Ctrl Home') 
-tabControl.pack(expand = 1, fill ="both")
+from openpyxl import load_workbook
 
 
-container = ttk.Frame(tab1)
-canvas = tk.Canvas(container)
-scrollbar = ttk.Scrollbar(container, orient="vertical", command=canvas.yview)
-scrollable_frame = ttk.Frame(canvas)
+def is_cell_frozen(worksheet, cell):
+    # Get the SheetView object
+    sheet_view = worksheet.sheet_view
+    # Check if there are frozen panes
+    if sheet_view.pane is not None and sheet_view.pane.state == "frozen":
+        # Get the range of frozen panes
+        top_left_cell = sheet_view.pane.topLeftCell
+        bottom_right_cell = sheet_view.pane.bottomRightCell
 
-scrollable_frame.bind(
-    "<Configure>",
-    lambda e: canvas.configure(
-        scrollregion=canvas.bbox("all")
-    )
-)
+        # Convert the cell reference to row and column indices
+        top_left_row, top_left_col = cell_to_indices(top_left_cell)
+        bottom_right_row, bottom_right_col = cell_to_indices(bottom_right_cell)
+        
+        # Convert the cell to check to row and column indices
+        check_row, check_col = cell_to_indices(cell)
 
-canvas.create_window((0, 0), window=scrollable_frame, anchor="nw")
+        # Check if the cell falls within the range of frozen panes
+        if top_left_row <= check_row <= bottom_right_row and top_left_col <= check_col <= bottom_right_col:
+            return True
+    return False
 
-canvas.configure(yscrollcommand=scrollbar.set)
+# Load the Excel workbook
+wb = load_workbook("C:/Users/toanlk/Desktop/ToolsChangeExcel/test.xlsx")
+ws = wb.active
+# test = 'A1'
+print(ws.rows)
 
-for i in range(50):
-    test = ttk.Frame(scrollable_frame)
-    test.pack()
-    ttk.Entry(test).pack(side="left")
-    ttk.Entry(test).pack(side='left')
+# ws.views.sheetView[0].selection[0].activeCell = test
+# ws.views.sheetView[0].selection[0].sqref = test
+# print(ws.sheet_view.pane.state)
+# ws.freeze_panes = test
 
+wb.save("C:/Users/toanlk/Desktop/ToolsChangeExcel/test.xlsx")
+# Remember to close the workbook when you're done
+wb.close()
 
-
-container.pack()
-canvas.pack(side="left", fill="both", expand=True)
-scrollbar.pack(side="right", fill="y")
-
-root.mainloop()

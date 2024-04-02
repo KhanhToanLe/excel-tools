@@ -45,22 +45,6 @@ change_data_value = []
 # c.pack()
 
 def set_value_test():
-  # wb = load_workbook(filename = "first_test.xlsx")
-  # active_sheets = wb.active
-  # input_cell = f"{a.get()}{b.get()}";
-  # print(input_cell);
-  # active_sheets[input_cell] = c.get()
-  # wb.save("first_test.xlsx")
   value = entry_input[0].row
-  print(value.get())
-
-
-# AddButton = Button(window, text ="Add value", command = lambda:inf.add_change_data_click_handler(scrollable_frame))
-# AddButton.place(x=4,y=60)
-
-# AddValue = Button(window, text ="Add Row", command = inf.add_row_value_input_handler)
-# AddValue.place(x=60,y=60)
-executeButton = Button(window, text ="Add value", command = lambda:inf.add_change_data_click_handler(change_data_tab))
-executeButton.pack(side=BOTTOM)
 
 window.mainloop()
