@@ -10,11 +10,7 @@ import helper
 # startup app
 window, change_data_tab, ctr_home_tab,scrollable_frame = inf.startup()
 
-# change_data_value = [InputData(
-#     Entry(window, width=35),
-#     Entry(window, width=35),
-#     Entry(window, width=35),
-#   )]
+change_data_value = []
 
 # entry_input = [
 #   InputData(
@@ -59,8 +55,8 @@ def set_value_test():
   print(value.get())
 
 
-AddButton = Button(window, text ="Add value", command = lambda:inf.add_change_data_click_handler(scrollable_frame))
-AddButton.place(x=4,y=60)
+# AddButton = Button(window, text ="Add value", command = lambda:inf.add_change_data_click_handler(scrollable_frame))
+# AddButton.place(x=4,y=60)
 
 # AddValue = Button(window, text ="Add Row", command = inf.add_row_value_input_handler)
 # AddValue.place(x=60,y=60)

@@ -52,14 +52,21 @@ def display_change_data_content_tab(tab1):
 	)
 	canvas.create_window((0, 0), window=scrollable_frame, anchor="nw")
 	canvas.configure(yscrollcommand=scrollbar.set)
-	# for i in range(50):
-	# 	test = Frame(scrollable_frame)
-	# 	test.pack()
-	# 	ttk.Entry(test).pack(side="left")
 	container.pack(fill="both",)
 	canvas.pack(side="left", fill=BOTH, expand=True)
 	scrollbar.pack(side="right", fill="y")
+	# button
+	# AddButton = Button(container, text ="Add value", command = lambda:add_change_data_click_handler(scrollable_frame))
+	# AddButton.place(x=4,y=4)
+	# add_change_data_click_handler(scrollable_frame)
+	add_change_data_click_handler(scrollable_frame)
+	for i in data.change_data:
+		i.cell.pack()
 	return scrollable_frame
+
+def reload_change_data_list():
+	for i in data.change_data:
+		i.cell.pack()
 
 def execute_change_data():
 	current_frame = data.change_data[0].row.winfo_children()
@@ -68,8 +75,19 @@ def execute_change_data():
 
 def add_change_data_click_handler(scrollable_frame):
 	test = Frame(scrollable_frame)
-	test.pack()
-	ttk.Entry(test).pack(side="left")
+	cell = Entry(test,font=("Arial", 11, "normal"),width=12 )
+	cell.pack(side=LEFT)
+	value = Entry(test,font=("Arial", 11, "normal"),width=12)
+	value.pack(side=LEFT)
+	Button(test,text="Add New",command=lambda:add_change_data_click_handler(scrollable_frame)).pack(side=LEFT)
+	data.change_data.append(
+		data.InputData(
+			test
+		)
+	)
+	reload_change_data_list()
+
+
 
 def startup():
 	window = create_main_window()
