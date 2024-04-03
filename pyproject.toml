@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "tool-excel"
+version = "0.1.0"
+description = "change later"
+authors = ["ToanLK <khanhtoan.le.6555@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+tk = "^0.1.0"
+openpyxl = "^3.1.2"
+xlwings = "^0.31.1"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

@@ -45,14 +45,6 @@ change_data_value = []
 # c.pack()
 
 def set_value_test():
-  # wb = load_workbook(filename = "first_test.xlsx")
-  # active_sheets = wb.active
-  # input_cell = f"{a.get()}{b.get()}";
-  # print(input_cell);
-  # active_sheets[input_cell] = c.get()
-  # wb.save("first_test.xlsx")
   value = entry_input[0].row
-  print(value.get())
-
 
 window.mainloop()
