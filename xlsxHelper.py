@@ -3,8 +3,13 @@ from os import listdir
 from os.path import isfile, join, exists
 from tkinter import *
 import re
-import InputData as data	
+import InputData as data
+import xlwings as xw
+import time
 
+
+alphabet = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M',
+'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
 
 def get_files(directory):
 	directory = directory.replace("\\","/")
@@ -29,24 +34,33 @@ def validate_directory(directory):
 	if directory == "" or not exists(directory):
 		return False
 	return True
-	
-def change_data(command_list, directory,window, select_sheet):
+
+def validate_directory_and_select_sheet(directory, select_sheet, window):
 	is_valid_directory = validate_directory(directory)
 	if not is_valid_directory :
 		add_message_box("Directory is invalid!",window)
-		return
+		return False
 	try: 
 		select_sheet = int(select_sheet)
 		select_sheet = 0 if select_sheet - 1 <= 0 else select_sheet - 1
 	except:
 		if select_sheet != data.INFINITE_SHEET_CHECKER:
 			add_message_box("Invalid sheet number",window)
-			return
+			return False
+	return True
+
+	
+def change_data(command_list, directory,window, select_sheet):
+	is_valid = validate_directory_and_select_sheet(directory,select_sheet,window)
+	if not is_valid: 
+		return
 	files = get_files(directory)
 	for file in files:
 		try:
 			wb = load_workbook(filename = file)
 			worksheets = []
+			select_sheet = int(select_sheet)
+			select_sheet = 0 if select_sheet - 1 <= 0 else select_sheet - 1
 			if select_sheet != data.INFINITE_SHEET_CHECKER:
 				worksheets = [wb.worksheets[select_sheet]]
 			else:
@@ -63,12 +77,6 @@ def change_data(command_list, directory,window, select_sheet):
 						return
 					update_value = command.value
 					worksheet[update_cell] = update_value
-					
-			# worksheet.sheet_view.topLeftCell = 'A1'
-			
-			worksheet.views.sheetView[0].selection[0].activeCell = "topLeft"
-			worksheet.views.sheetView[0].selection[0].sqref = 'topLeft'
-			print(worksheet.freeze_panes)
 			wb.save(file)
 		except Exception as ex:
 			# exception: index out of range
@@ -76,13 +84,57 @@ def change_data(command_list, directory,window, select_sheet):
 				file_name_log = file.split("/")[-1]
 				add_message_box(f"Error {file_name_log} \n out of range",window,height=140,width=150)
 				return
-			if type(ex) == AttributeError:
-				add_message_box("Turn off .xlsx files",window,height=140,width=150)
+			if type(ex) == PermissionError:
+				add_message_box("Turn off all of\n .xlsx files first",window,height=140,width=150)
 				return
 			# exception: all
-			print(ex)
-			add_message_box("Error detect!",window)
+			print(type(ex))
+			add_message_box("Error detected!",window)
 			return
 	# complete
 	add_message_box("Execute completed!",window)
+def get_column_by_index(index):
+	global alphabet
+	divide_val = int(index/26)-1
+	offset_val = int(index%26)-1
+	if divide_val == -1:
+		return alphabet[offset_val]
+	return f"{alphabet[divide_val]}{alphabet[offset_val]}"
+
+def control_home(directory, select_sheet, window,process_bar_increase_val):
+	is_valid = validate_directory_and_select_sheet(directory,select_sheet, window)
+	if not is_valid: 
+		return
+	files = get_files(directory)
+	num_files = len(files)
+	num_steps =  100/num_files
+	try:
+		app = xw.App(visible=True)
+		process_bar_increase_val(num_steps)
+		for file in files:
+			book = xw.Book(file)
+			active_window = book.app.api.ActiveWindow
+			for sheet in book.sheets:
+				sheet.activate()
+				is_freeze_panes = active_window.FreezePanes
+				if is_freeze_panes:
+					freeze_row =  int(active_window.SplitRow) + 1
+					freeze_column = int(active_window.SplitColumn) + 1
+					freeze_column = get_column_by_index(freeze_column)
+					select_coord = f"{freeze_column}{freeze_row}"
+					sheet.range(select_coord).select()
+				else:
+					sheet.range("A1").select()
+			# TODO: jump to sheet feature
+			book.save(file)
+			book.close()
+			time.sleep(0.5)
+
+		add_message_box("Execute completed",window)
+		app.quit()
+	except Exception as ex:
+		print(ex)
+		add_message_box("Error detected!",window)
+
+
 

@@ -5,9 +5,20 @@ from tkinter import ttk
 import helper as HELPER
 import InputData as data
 
+# global variable
 input_directory_entry = ""
+is_check_all_page = 0
+old_choose_value = ""
+chose_sheet = 1
+notebook_control = None
+main_window = ""
+process_bar = None
+process_bar_frame = None 
 
 def create_main_window():
+	"""
+	create main window
+    """
 	main_window = Tk()
 	# main window set up
 	# main_window.state('zoomed')
@@ -16,20 +27,31 @@ def create_main_window():
 	return main_window
 
 def select_working_directory(input_directory:Entry):
+	"""
+	select working directory button handler
+	"""
 	select_directory = tkinter.filedialog.askdirectory()
 	input_directory.delete(0,END)
 	input_directory.insert(0,select_directory)
 
 def display_tab(window):
-	tabControl = ttk.Notebook(window) 
-	tab1 = Frame(tabControl)
-	tab2 = Frame(tabControl)
-	tabControl.add(tab1, text ='Change Data') 
-	tabControl.add(tab2, text ='Ctrl Home') 
-	tabControl.pack(expand = 1, fill ="both")
+	"""
+	init and display all tabs
+	"""
+	tab_control = ttk.Notebook(window) 
+	global notebook_control
+	notebook_control = tab_control
+	tab1 = Frame(tab_control,name="change_data")
+	tab2 = Frame(tab_control,name="control_home")
+	tab_control.add(tab1, text ='Change Data') 
+	tab_control.add(tab2, text ='Ctrl Home') 
+	tab_control.pack(expand = 1, fill ="both")
 	return tab1,tab2
 
 def display_directory_input(window):
+	"""
+	display directory input field and select working directory button
+	"""
 	pane = Frame(window)
 	pane.pack(fill = BOTH)
 	Label(pane,text="Directory").pack(side=LEFT,pady=4,padx=4)
@@ -43,6 +65,9 @@ def display_directory_input(window):
 	button.pack(side=LEFT,pady=4,padx=12);
 
 def display_change_data_content_tab(tab1):
+	"""
+	display content of content tab
+	"""
 	container = Frame(tab1,background="white")
 	height = HELPER.WINDOW_SIZE.split("x")[1]
 	canvas = Canvas(container,background="white",height=(int(height)-100))
@@ -69,29 +94,45 @@ def display_change_data_content_tab(tab1):
 	return scrollable_frame
 
 def reload_change_data_list(scrollable_frame):
+	"""
+	reload change data command in content tab
+	"""
 	for i in scrollable_frame.winfo_children():
 		i.pack_forget()
 	for i in data.change_data:
 		i.frame.pack(fill=X,expand=True)
 
 def execute_change_data():
+	"""
+	execute change data command button handler
+	"""
 	current_frame = data.change_data[0].row.winfo_children()
 	for change_value in current_frame:
 		print(change_value.get())
 
 def remove_change_data(scrollable_frame,added_frame):
+	"""
+	remove a change data command button handler
+	"""
 	data.change_data.remove(added_frame)
 	if len(data.change_data) == 0:
 		add_change_data_click_handler(scrollable_frame,1)
 	reload_change_data_list(scrollable_frame)
 
 def upper_case_cell(event:Event):
+	"""
+	uppercase value of cell-input's change data command 
+	"""
 	entry = event.widget
 	primitive_val = entry.get()
 	entry.delete(0,END)
 	entry.insert(0,primitive_val.upper())
 
 def add_change_data_click_handler(scrollable_frame,add_item):
+	"""
+	add a change data command button handler
+	"""
+
 	test = Frame(scrollable_frame)
 	cell = Entry(test,font=("Arial", 11, "normal"),width=12 )
 	cell.bind("<FocusOut>",upper_case_cell)
@@ -108,13 +149,11 @@ def add_change_data_click_handler(scrollable_frame,add_item):
 		data.change_data.insert(insert_after,added_frame)
 	reload_change_data_list(scrollable_frame)
 
-
-
-is_check_all_page = 0
-old_choose_value = ""
-chose_sheet = 1
-
 def checker_all_page_handler(is_check):
+	"""
+	all-page checkbox handler 
+	"""
+
 	# global is_check_all_page
 	global is_check_all_page, chose_sheet,old_choose_value
 	is_check_all_page =  is_check.get()
@@ -129,38 +168,73 @@ def checker_all_page_handler(is_check):
 		chose_sheet.insert(0,old_choose_value)
 
 def display_change_data_execute_selection(window):
+	"""
+	display execute panel at the button
+	"""
+
 	execute_frame = Frame(window)
 	execute_frame.pack(fill=BOTH,expand=True)
 
 	Label(execute_frame, text="Select Sheet").grid(row=0,column=1)
 
 	select_sheet = Entry(execute_frame,width=4)
+	select_sheet.insert(0,1)
 	select_sheet.grid(row=0,column=2,padx=4)
 	global chose_sheet
 	chose_sheet = select_sheet
 	# global is_check_all_page
 	myVar = IntVar()
 	Checkbutton(execute_frame, text='Every Sheet',variable=myVar, onvalue=1, offvalue=0, command=lambda:checker_all_page_handler(myVar)).grid(row=0,column=3)
-	
-	executeButton = Button(execute_frame, text ="Execute", command = lambda:change_data())
+	executeButton = Button(execute_frame, text ="Execute", command = lambda:execute_button_handler())
 	executeButton.grid(row=0,column=4)
 
+
+def process_bar_increase_val():
+	"""
+	change value for creating processBar animation
+	"""
+	if process_bar['value'] < 100:
+		process_bar['value'] += 0.5
+		# process_bar_frame.after(100,process_bar_increase_val)
+
 def display_control_home(control_home_tab):
-	print("go here")
+	"""
+	display control home tab
+	"""
+	global process_bar, process_bar_frame
+
+	process_bar_frame = Frame(control_home_tab,background='white')
+	process_bar_frame.pack(fill=BOTH, expand=True)
+	Label(process_bar_frame,text="Apply control-home action by pressing execute button\nIt will take a few minutes!",height=20,background='white').pack()
+	process_bar = ttk.Progressbar(process_bar_frame, orient="horizontal", length=200, mode="determinate",
+	takefocus=True, maximum=100)
+	process_bar['value'] = 0
+	process_bar.pack()
 
 def	get_change_data_command():
+	"""
+	combine change data command(<changeData>) to command data(<CommandData>)
+	"""
+
 	data.command_data = []
 	for item in data.change_data:
 		current_frame = item.frame
 		entries = current_frame.winfo_children()
 		data.command_data.append(data.ChangeData(entries[0].get(),entries[1].get()))
 
-main_window = ""
-
-def change_data():
-	get_change_data_command()
-	global chose_sheet
-	xlsx.change_data(data.command_data,input_directory_entry.get(),main_window,chose_sheet.get())
+def execute_button_handler():
+	"""
+	execute button handler
+	"""
+	global notebook_control,input_directory_entry, chose_sheet
+	select_tab = notebook_control.select()
+	input_directory = input_directory_entry.get()
+	chose_sheet_value = chose_sheet.get()
+	if select_tab == data.CHANGE_DATA_TAB_NAME:
+		get_change_data_command()
+		xlsx.change_data(data.command_data, input_directory, main_window, chose_sheet_value)
+	elif select_tab == data.CONTROL_HOME_TAB_NAME:
+		xlsx.control_home(input_directory, chose_sheet_value, main_window, process_bar_increase_val)
 
 def startup():
 	window = create_main_window()

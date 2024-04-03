@@ -1,39 +1,66 @@
-from openpyxl import load_workbook
+# from openpyxl import *
+# import time 
+# import re
+
+# path = "sample_file.xlsx"
+# wb = load_workbook("sample_file.xlsx")
+# sheet = wb.active  
 
 
-def is_cell_frozen(worksheet, cell):
-    # Get the SheetView object
-    sheet_view = worksheet.sheet_view
-    # Check if there are frozen panes
-    if sheet_view.pane is not None and sheet_view.pane.state == "frozen":
-        # Get the range of frozen panes
-        top_left_cell = sheet_view.pane.topLeftCell
-        bottom_right_cell = sheet_view.pane.bottomRightCell
+# is_go_to_loop = True
+# if sheet.freeze_panes == None:
+#     is_go_to_loop = False
 
-        # Convert the cell reference to row and column indices
-        top_left_row, top_left_col = cell_to_indices(top_left_cell)
-        bottom_right_row, bottom_right_col = cell_to_indices(bottom_right_cell)
-        
-        # Convert the cell to check to row and column indices
-        check_row, check_col = cell_to_indices(cell)
+# sheet.freeze_panes = 'A2'
+# print(sheet.freeze_panes)
+# active_cell = "A6"
+# sheet.views.sheetView[0].selection[0].activeCell = active_cell
+# sheet.views.sheetView[0].selection[0].sqref =  active_cell
+# print(sheet.freeze_panes)
 
-        # Check if the cell falls within the range of frozen panes
-        if top_left_row <= check_row <= bottom_right_row and top_left_col <= check_col <= bottom_right_col:
-            return True
-    return False
 
-# Load the Excel workbook
-wb = load_workbook("C:/Users/toanlk/Desktop/ToolsChangeExcel/test.xlsx")
-ws = wb.active
-# test = 'A1'
-print(ws.rows)
+# while True and is_go_to_loop:
+#     print("loop")
+#     matches = re.match(r"([a-zA-Z]+)(\d+)", sheet.freeze_panes)
+#     if matches:
+#         alphabetic_part = matches.group(1)
+#         numeric_part = int(matches.group(2))
+#         if numeric_part != 2:
+#             numeric_part = numeric_part - 1
+#             sheet.freeze_panes = f"{alphabetic_part}{numeric_part}"
+#             print(sheet.freeze_panes)
+#         else:
+#             break
 
-# ws.views.sheetView[0].selection[0].activeCell = test
-# ws.views.sheetView[0].selection[0].sqref = test
-# print(ws.sheet_view.pane.state)
-# ws.freeze_panes = test
+# wb.save("sample_file.xlsx") 
 
-wb.save("C:/Users/toanlk/Desktop/ToolsChangeExcel/test.xlsx")
-# Remember to close the workbook when you're done
-wb.close()
+
+# import xlwings as xw
+# excel_app = xw.App(visible=False)
+
+# wb = excel_app.books.open(path)
+# ws = wb.sheets[0]
+# active_window = wb.app.api.ActiveWindow
+# go_to_range = "A1"
+# ws.range(go_to_range).select()
+# print(active_window.FreezePanes)
+# print(active_window.SplitRow)
+# print(active_window.SplitColumn)
+
+# wb.save()
+# wb.close()
+
+uppercase_alphabet = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M',
+'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
+
+row = 27
+
+divide_val = int(row/26)
+offset_val = int(row%26)
+if divide_val == 0:
+    # do something
+    print("go here")
+
+print(uppercase_alphabet[divide_val-1])
+print(uppercase_alphabet[offset_val-1])
 
