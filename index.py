@@ -8,7 +8,7 @@ import Interface as inf
 import helper
 
 # startup app
-window, change_data_tab, ctr_home_tab,scrollable_frame,directory_input = inf.startup()
+window, change_data_tab, ctr_home_tab,scrollable_frame = inf.startup()
 
 change_data_value = []
 

@@ -14,6 +14,8 @@ notebook_control = None
 main_window = ""
 process_bar = None
 process_bar_frame = None 
+checkbox_frame = None
+
 
 def create_main_window():
 	"""
@@ -34,11 +36,49 @@ def select_working_directory(input_directory:Entry):
 	input_directory.delete(0,END)
 	input_directory.insert(0,select_directory)
 
+def chose_sheet_data_checker(value):
+	global chose_sheet,checkbox_frame
+	try:
+
+		select_sheet = int(value)
+		checkbox_frame.deselect()
+		chose_sheet.config(state= "normal")
+		chose_sheet.delete(0,END)
+		chose_sheet.insert(0,select_sheet)
+		return True
+	except Exception as ex:
+		if value == data.INFINITE_SHEET_CHECKER:
+			checkbox_frame.select()
+			chose_sheet.config(state= "normal")
+			chose_sheet.delete(0,END)
+			chose_sheet.insert(0,value)
+			chose_sheet.config(state= "disabled")
+			return True
+		xlsx.add_message_box("Invalid number sheet", main_window)
+		return False
+	
+old_change_data_execute_value = 1
+
+def change_tab_handler(selected_tab):
+	global checkbox_frame,is_check_all_page,old_change_data_execute_value,chose_sheet
+	if selected_tab == data.CONTROL_HOME_TAB_NAME :
+		old_change_data_execute_value = chose_sheet.get()
+		checkbox_frame.select()
+		is_valid = checker_all_page_handler(IntVar(value=1))
+		checkbox_frame.config(state="disabled")
+		if is_valid: return 
+	elif selected_tab == data.CHANGE_DATA_TAB_NAME :
+		is_valid = chose_sheet_data_checker(old_change_data_execute_value)
+		checkbox_frame.config(state="normal")
+		if is_valid: return
+
+
 def display_tab(window):
 	"""
 	init and display all tabs
 	"""
 	tab_control = ttk.Notebook(window) 
+	tab_control.bind("<<NotebookTabChanged>>",lambda event:change_tab_handler(tab_control.select()))
 	global notebook_control
 	notebook_control = tab_control
 	tab1 = Frame(tab_control,name="change_data")
@@ -159,7 +199,8 @@ def checker_all_page_handler(is_check):
 	global is_check_all_page, chose_sheet,old_choose_value
 	is_check_all_page =  is_check.get()
 	if(is_check_all_page == 1):
-		old_choose_value = chose_sheet.get()
+		if chose_sheet.get() != data.INFINITE_SHEET_CHECKER:
+			old_choose_value = chose_sheet.get()
 		chose_sheet.delete(0,END)
 		chose_sheet.insert(0,'∞')
 		chose_sheet.config(state= "disabled")
@@ -167,6 +208,7 @@ def checker_all_page_handler(is_check):
 		chose_sheet.config(state= "normal")
 		chose_sheet.delete(0,END)
 		chose_sheet.insert(0,old_choose_value)
+
 
 def display_change_data_execute_selection(window):
 	"""
@@ -181,22 +223,26 @@ def display_change_data_execute_selection(window):
 	select_sheet = Entry(execute_frame,width=4)
 	select_sheet.insert(0,1)
 	select_sheet.grid(row=0,column=2,padx=4)
-	global chose_sheet
+	global chose_sheet, checkbox_frame
 	chose_sheet = select_sheet
 	# global is_check_all_page
 	myVar = IntVar()
-	Checkbutton(execute_frame, text='Every Sheet',variable=myVar, onvalue=1, offvalue=0, command=lambda:checker_all_page_handler(myVar)).grid(row=0,column=3)
+	checkbox_frame = Checkbutton(execute_frame, text='Every Sheet',variable=myVar, onvalue=1, offvalue=0, command=lambda:checker_all_page_handler(myVar))
+	checkbox_frame.grid(row=0,column=3)
 	executeButton = Button(execute_frame, text ="Execute", command = lambda:execute_button_handler())
 	executeButton.grid(row=0,column=4)
 
 
-def process_bar_increase_val():
+def process_bar_increase_val(value):
 	"""
 	change value for creating processBar animation
 	"""
-	if process_bar['value'] < 100:
-		process_bar['value'] += 0.5
-		# process_bar_frame.after(100,process_bar_increase_val)
+	if value == 0: process_bar['value'] = value
+	else:
+		if process_bar['value'] < 100:
+			process_bar['value'] += value
+	main_window.update_idletasks()
+	# main_window.after(100)
 
 def display_control_home(control_home_tab):
 	"""

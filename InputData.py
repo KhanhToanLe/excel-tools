@@ -9,7 +9,6 @@ class ChangeData:
     self.cell = cell
     self.value = value
 
-
 change_data = []
 command_data = []
 
