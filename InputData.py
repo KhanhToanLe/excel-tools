@@ -16,3 +16,4 @@ command_data = []
 INFINITE_SHEET_CHECKER = "∞"
 CHANGE_DATA_TAB_NAME = ".!notebook.change_data"
 CONTROL_HOME_TAB_NAME = ".!notebook.control_home"
+MERGE_SHEET_TAB_NAME = ".!notebook.merge_sheet"

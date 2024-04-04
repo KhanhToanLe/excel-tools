@@ -10,6 +10,7 @@ python = "^3.12"
 tk = "^0.1.0"
 openpyxl = "^3.1.2"
 xlwings = "^0.31.1"
+cx-freeze = "7.0.0rc0"
 
 
 [build-system]

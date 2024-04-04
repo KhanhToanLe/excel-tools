@@ -4,6 +4,8 @@ import tkinter.filedialog
 from tkinter import ttk
 import helper as HELPER
 import InputData as data
+import traceback
+import exception_logger as exlogger
 
 # global variable
 input_directory_entry = ""
@@ -15,15 +17,16 @@ main_window = ""
 process_bar = None
 process_bar_frame = None 
 checkbox_frame = None
-
+old_change_data_execute_value = 1
+destination_file = None
+remove_old_merge_sheet_check_box = None
+remove_old_merge_sheet_first = None
 
 def create_main_window():
 	"""
 	create main window
     """
 	main_window = Tk()
-	# main window set up
-	# main_window.state('zoomed')
 	main_window.geometry(HELPER.WINDOW_SIZE)
 	main_window.title(HELPER.APP_NAME)
 	return main_window
@@ -39,7 +42,6 @@ def select_working_directory(input_directory:Entry):
 def chose_sheet_data_checker(value):
 	global chose_sheet,checkbox_frame
 	try:
-
 		select_sheet = int(value)
 		checkbox_frame.deselect()
 		chose_sheet.config(state= "normal")
@@ -55,10 +57,9 @@ def chose_sheet_data_checker(value):
 			chose_sheet.config(state= "disabled")
 			return True
 		xlsx.add_message_box("Invalid number sheet", main_window)
+		exlogger.write(traceback.format_exc())
 		return False
 	
-old_change_data_execute_value = 1
-
 def change_tab_handler(selected_tab):
 	global checkbox_frame,is_check_all_page,old_change_data_execute_value,chose_sheet
 	if selected_tab == data.CONTROL_HOME_TAB_NAME :
@@ -67,11 +68,10 @@ def change_tab_handler(selected_tab):
 		is_valid = checker_all_page_handler(IntVar(value=1))
 		checkbox_frame.config(state="disabled")
 		if is_valid: return 
-	elif selected_tab == data.CHANGE_DATA_TAB_NAME :
+	elif selected_tab == data.CHANGE_DATA_TAB_NAME or selected_tab == data.MERGE_SHEET_TAB_NAME:
 		is_valid = chose_sheet_data_checker(old_change_data_execute_value)
 		checkbox_frame.config(state="normal")
 		if is_valid: return
-
 
 def display_tab(window):
 	"""
@@ -83,10 +83,12 @@ def display_tab(window):
 	notebook_control = tab_control
 	tab1 = Frame(tab_control,name="change_data")
 	tab2 = Frame(tab_control,name="control_home")
+	tab3 = Frame(tab_control,name="merge_sheet")
 	tab_control.add(tab1, text ='Change Data') 
 	tab_control.add(tab2, text ='Ctrl Home') 
+	tab_control.add(tab3, text ='Merge Sheet')
 	tab_control.pack(expand = 1, fill ="both")
-	return tab1,tab2
+	return tab1,tab2,tab3
 
 def display_directory_input(window):
 	"""
@@ -103,7 +105,6 @@ def display_directory_input(window):
 	input_directory_entry =  input_directory
 	button = Button(pane,text = "Select",background ="white", fg = "black",command=lambda:select_working_directory(input_directory))
 	button.pack(side=LEFT,pady=4,padx=12);
-
 
 def display_change_data_content_tab(tab1):
 	"""
@@ -125,10 +126,6 @@ def display_change_data_content_tab(tab1):
 	container.pack(fill="both",)
 	canvas.pack(side="left", fill=BOTH, expand=True)
 	scrollbar.pack(side="right", fill="y")
-	# button
-	# AddButton = Button(container, text ="Add value", command = lambda:add_change_data_click_handler(scrollable_frame))
-	# AddButton.place(x=4,y=4)
-	# add_change_data_click_handler(scrollable_frame)
 	add_change_data_click_handler(scrollable_frame,1)
 	for i in data.change_data:
 		i.frame.pack()
@@ -142,14 +139,6 @@ def reload_change_data_list(scrollable_frame):
 		i.pack_forget()
 	for i in data.change_data:
 		i.frame.pack(fill=X,expand=True)
-
-def execute_change_data():
-	"""
-	execute change data command button handler
-	"""
-	current_frame = data.change_data[0].row.winfo_children()
-	for change_value in current_frame:
-		print(change_value.get())
 
 def remove_change_data(scrollable_frame,added_frame):
 	"""
@@ -173,7 +162,6 @@ def add_change_data_click_handler(scrollable_frame,add_item):
 	"""
 	add a change data command button handler
 	"""
-
 	test = Frame(scrollable_frame)
 	cell = Entry(test,font=("Arial", 11, "normal"),width=12 )
 	cell.bind("<FocusOut>",upper_case_cell)
@@ -194,8 +182,6 @@ def checker_all_page_handler(is_check):
 	"""
 	all-page checkbox handler 
 	"""
-
-	# global is_check_all_page
 	global is_check_all_page, chose_sheet,old_choose_value
 	is_check_all_page =  is_check.get()
 	if(is_check_all_page == 1):
@@ -208,7 +194,6 @@ def checker_all_page_handler(is_check):
 		chose_sheet.config(state= "normal")
 		chose_sheet.delete(0,END)
 		chose_sheet.insert(0,old_choose_value)
-
 
 def display_change_data_execute_selection(window):
 	"""
@@ -225,13 +210,12 @@ def display_change_data_execute_selection(window):
 	select_sheet.grid(row=0,column=2,padx=4)
 	global chose_sheet, checkbox_frame
 	chose_sheet = select_sheet
-	# global is_check_all_page
+
 	myVar = IntVar()
 	checkbox_frame = Checkbutton(execute_frame, text='Every Sheet',variable=myVar, onvalue=1, offvalue=0, command=lambda:checker_all_page_handler(myVar))
 	checkbox_frame.grid(row=0,column=3)
 	executeButton = Button(execute_frame, text ="Execute", command = lambda:execute_button_handler())
 	executeButton.grid(row=0,column=4)
-
 
 def process_bar_increase_val(value):
 	"""
@@ -242,7 +226,6 @@ def process_bar_increase_val(value):
 		if process_bar['value'] < 100:
 			process_bar['value'] += value
 	main_window.update_idletasks()
-	# main_window.after(100)
 
 def display_control_home(control_home_tab):
 	"""
@@ -252,6 +235,7 @@ def display_control_home(control_home_tab):
 
 	process_bar_frame = Frame(control_home_tab,background='white')
 	process_bar_frame.pack(fill=BOTH, expand=True)
+
 	Label(process_bar_frame,text="Apply control-home action by pressing execute button\nIt will take a few minutes!",height=20,background='white').pack()
 	process_bar = ttk.Progressbar(process_bar_frame, orient="horizontal", length=200, mode="determinate",
 	takefocus=True, maximum=100)
@@ -262,18 +246,18 @@ def	get_change_data_command():
 	"""
 	combine change data command(<changeData>) to command data(<CommandData>)
 	"""
-
 	data.command_data = []
 	for item in data.change_data:
 		current_frame = item.frame
 		entries = current_frame.winfo_children()
 		data.command_data.append(data.ChangeData(entries[0].get(),entries[1].get()))
 
+
 def execute_button_handler():
 	"""
 	execute button handler
 	"""
-	global notebook_control,input_directory_entry, chose_sheet
+	global notebook_control,input_directory_entry, chose_sheet,destination_file,remove_old_merge_sheet_check_box
 	select_tab = notebook_control.select()
 	input_directory = input_directory_entry.get()
 	chose_sheet_value = chose_sheet.get()
@@ -282,17 +266,51 @@ def execute_button_handler():
 		xlsx.change_data(data.command_data, input_directory, main_window, chose_sheet_value)
 	elif select_tab == data.CONTROL_HOME_TAB_NAME:
 		xlsx.control_home(input_directory, chose_sheet_value, main_window, process_bar_increase_val)
+	elif select_tab == data.MERGE_SHEET_TAB_NAME:
+		xlsx.merge_sheet(input_directory,chose_sheet_value,main_window,destination_file.get(),remove_old_merge_sheet_first.get())
+
+def choose_destination_file_handler():
+	select_file = tkinter.filedialog.askopenfile(filetypes=[("Excel files", ".xlsx")])
+	global destination_file
+	destination_file.delete(0,END)
+	value = select_file.name if select_file != None else ""
+	destination_file.insert(0,value)
+
+def display_merge_sheet_tab_content(merge_frame):
+	merge_container_frame = Frame(merge_frame,background="white")
+	merge_container_frame.pack(expand=True,fill=BOTH)
+	merge_content_frame = Frame(merge_container_frame,background="white",pady=50)
+	merge_content_frame.pack()
+	Label(merge_content_frame,text="Select directory and destination file before pressing execute button to merge sheet! \nChanging prefix merge-sheet's name in config.json may cause error \nby sheet name duplication",background='white').pack()
+
+	choose_file_frame = Frame(merge_container_frame,background="white",padx=12)
+	choose_file_frame.pack(fill=X)
+
+	destination_input_frame = Frame(choose_file_frame)
+	destination_input_frame.pack(fill=X, expand=True,side=BOTTOM)
+
+	Label(choose_file_frame,text="Destination file:",anchor="e",justify=LEFT,background='white').pack(side=LEFT)
+	global destination_file
+	destination_file = Entry(destination_input_frame,highlightthickness=1)
+	destination_file.config(highlightbackground = "gray", highlightcolor= "gray")
+	destination_file.pack(fill=X,expand=True, side=LEFT)
+	Button(destination_input_frame,text="Select",command=lambda:choose_destination_file_handler()).pack(side=LEFT)
+
+	global remove_old_merge_sheet_check_box,remove_old_merge_sheet_first
+	remove_old_merge_sheet_first = IntVar(value=1)
+	remove_old_merge_sheet_check_box = Checkbutton(choose_file_frame,text="Remove old merge sheet first",variable=remove_old_merge_sheet_first, onvalue=1, offvalue=0,background="white")
+	remove_old_merge_sheet_check_box.pack(side=TOP,fill=X, expand=True )
 
 def startup():
-	window = create_main_window()
 	global main_window
+	window = create_main_window()
 	main_window = window
+
 	display_directory_input(window)
-	change_data_tab, ctr_home_tab = display_tab(window)
+	change_data_tab, ctr_home_tab, merge_tab  = display_tab(window)
 	scrollable_frame = display_change_data_content_tab(change_data_tab)
 	display_control_home(ctr_home_tab)
 	display_change_data_execute_selection(window)
+	display_merge_sheet_tab_content(merge_tab)
+
 	return window, change_data_tab, ctr_home_tab,scrollable_frame
-
-
-
