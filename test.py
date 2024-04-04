@@ -57,10 +57,5 @@ row = 27
 
 divide_val = int(row/26)
 offset_val = int(row%26)
-if divide_val == 0:
+# if divide_val == 0:
     # do something
-    print("go here")
-
-print(uppercase_alphabet[divide_val-1])
-print(uppercase_alphabet[offset_val-1])
-

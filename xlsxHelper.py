@@ -17,18 +17,20 @@ def get_files(directory):
 	files = [directory + f"/{f}" for f in files]
 	return files
 
-def remove_message_box(top_level):
+def remove_message_box(top_level, after_action=None):
 	top_level.destroy()
 	top_level.update()
+	after_action()
 
-def add_message_box(message,parent_frame,width=150,height=120):
+
+def add_message_box(message,parent_frame,width=150,height=120, unmount_action=None):
 	top= Toplevel(parent_frame,height=height,width=width)
 	x = parent_frame.winfo_x()
 	y = parent_frame.winfo_y()
 	top.geometry("%dx%d+%d+%d" % (width, height, x + 200, y + 200))
 	top.title("Info")
 	Label(top, text= message, font=('Arial 11 normal'),pady=20).pack()
-	Button(top, text= "Ok", font=('Arial 11 normal'),command=lambda:remove_message_box(top)).pack()
+	Button(top, text= "Ok", font=('Arial 11 normal'),command=lambda:remove_message_box(top,unmount_action)).pack()
 
 def validate_directory(directory):
 	if directory == "" or not exists(directory):
@@ -106,12 +108,12 @@ def control_home(directory, select_sheet, window,process_bar_increase_val):
 	if not is_valid: 
 		return
 	files = get_files(directory)
-	num_files = len(files)
-	num_steps =  100/num_files
 	try:
 		app = xw.App(visible=True)
-		process_bar_increase_val(num_steps)
+		steps = 100/len(files)
+		
 		for file in files:
+			process_bar_increase_val(steps)
 			book = xw.Book(file)
 			active_window = book.app.api.ActiveWindow
 			for sheet in book.sheets:
@@ -129,8 +131,8 @@ def control_home(directory, select_sheet, window,process_bar_increase_val):
 			book.save(file)
 			book.close()
 			time.sleep(0.5)
-
-		add_message_box("Execute completed",window)
+		add_message_box("Execute completed",window,unmount_action=lambda:process_bar_increase_val(0))
+		
 		app.quit()
 	except Exception as ex:
 		print(ex)
