@@ -1,18 +1,22 @@
 [tool.poetry]
-name = "tool-excel"
+name = "toolexcel"
 version = "0.1.0"
 description = "change later"
 authors = ["ToanLK <khanhtoan.le.6555@gmail.com>"]
 readme = "README.md"
 
 [tool.poetry.dependencies]
-python = "^3.12"
+python = ">=3.8, <3.13"
 tk = "^0.1.0"
 openpyxl = "^3.1.2"
 xlwings = "^0.31.1"
 cx-freeze = "7.0.0rc0"
+pyinstaller = "6.4.0"
 
 
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.scripts]
+build = "toolexcel.pyinstaller:install"
