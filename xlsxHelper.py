@@ -116,7 +116,7 @@ def control_home(directory, select_sheet, window,process_bar_increase_val):
 		return
 	files = get_files(directory)
 	try:
-		app = xw.App(visible=True)
+		app = xw.App(visible=helper.OPEN_EXCEL_WHILE_RUNNING)
 		steps = 100/len(files)
 		
 		for file in files:
@@ -139,11 +139,12 @@ def control_home(directory, select_sheet, window,process_bar_increase_val):
 			book.close()
 			process_bar_increase_val(steps)
 		add_message_box("Execute completed",window,unmount_action=lambda:process_bar_increase_val(0))
-		app.quit()
 
 	except Exception as ex:
 		add_message_box("Error detected!",window)
 		exlogger.write(traceback.format_exc())
+	finally:
+		app.quit()
 
 def get_max_number(strings):
 	max_number = None
@@ -169,38 +170,48 @@ def check_if_merge_index_of_sheet(choose_sheet):
 	except Exception as ex:
 		return "Not Set"
 
-def delete_old_merge_sheet(destination_work_book_directory,destination_work_book:Workbook,match_list):
+def delete_old_merge_sheet(destination_work_book,match_list):
 	for match_item in match_list:
-		destination_work_book.remove(destination_work_book[match_item])
-	destination_work_book.save(destination_work_book_directory);
+		destination_work_book.sheets[match_item].delete()
 
-def merge_sheet(directory, choose_sheet, window, destination_file, is_remove_old_merge_sheet):
+def merge_sheet(directory, choose_sheet, window, destination_file, is_remove_old_merge_sheet,process_bar_increase_val):
 	try:
+		app = xw.App(visible=helper.OPEN_EXCEL_WHILE_RUNNING)
 		is_valid = validate_directory_and_select_sheet(directory,choose_sheet, window)
 		if not is_valid: 
 			return
 		files = get_files(directory)
-		destination_file = destination_file.replace("\\","/")
-		if destination_file == "" or not isfile(destination_file):
-			add_message_box("Invalid destination file path",window,width=200)
-			return
 
-		destination_work_book = load_workbook(filename=destination_file)
-		destination_work_book_sheet_book_list = destination_work_book.sheetnames
+		destination_file = destination_file.replace("\\","/")
+		
+		if destination_file == "" or not isfile(destination_file):
+			if destination_file == "" :
+				destination_file = directory.replace("\\","/") + "/" + helper.DEFAULT_MERGE_FILE_NAME
+
+			create_work_book = xw.Book()
+			create_work_book.sheets[0].name = "Thống Kê"
+			create_work_book.save(destination_file)
+			create_work_book.close()
+
+		destination_work_book = xw.Book(destination_file)
+		destination_work_book_sheet_book_list = destination_work_book.sheet_names
+
 		global merge_sheet_prefix
 		match_list = list(filter(lambda v: match(rf'\b{merge_sheet_prefix}\d+\b', v), destination_work_book_sheet_book_list))
+
 		if is_remove_old_merge_sheet:
-			delete_old_merge_sheet(destination_file,destination_work_book, match_list)
+			delete_old_merge_sheet(destination_work_book, match_list)
 			match_list= []
+
 		maxValue = get_max_number(match_list)
 		sheet_merge_name_index = maxValue
 		merge_index_sheet = check_if_merge_index_of_sheet(choose_sheet)
-
-		for files  in files:
-			if files == destination_file: continue
+		steps = int(100/(sum(1 for i in files if i != destination_file)))
+		for file  in files:
+			if file == destination_file: continue
 			# sheet you want to copy
-			source = load_workbook(files)
-			sheet_list = source.sheetnames
+			source = xw.Book(file)
+			sheet_list = source.sheet_names
 			sheet_list_loop = None
 			if merge_index_sheet == "Not Set":
 				sheet_list_loop = sheet_list
@@ -208,30 +219,26 @@ def merge_sheet(directory, choose_sheet, window, destination_file, is_remove_old
 				sheet_list_loop = [sheet_list[merge_index_sheet]]
 
 			for sheet in sheet_list_loop:
-				first_sheet = source[sheet]
 				sheet_merge_name_index = sheet_merge_name_index + 1
 				global merge_sheet_prefix
-				first_sheet.title = merge_sheet_prefix + str(sheet_merge_name_index)
-				first_sheet._parent = destination_work_book
-				destination_work_book._add_sheet(first_sheet)
-			source.close()
-		destination_work_book.save(destination_file)
-		destination_work_book.close()
-		
-		app = xw.App(visible=True)
-		destination_book = app.books.open(destination_file)
-		sheet_length = len(destination_book.sheets)
+				merge_sheet_name = merge_sheet_prefix + str(sheet_merge_name_index)
+				source.sheets[sheet].copy(name=merge_sheet_name,after=destination_work_book.sheets[len(destination_work_book.sheets)-1])
+			process_bar_increase_val(steps)
 
-		for sheet in reversed(range(0,int(math.ceil(sheet_length)))):
-			destination_book.sheets[sheet].activate()
-		destination_book.save()
-		app.quit()
-		add_message_box("Execute completed", window)
+		destination_work_book.save()
+		destination_work_book.close()
+		add_message_box("Execute completed", window,unmount_action=lambda:process_bar_increase_val(0))
 		
 	except Exception as ex:
-		if isinstance(ex,PermissionError):
-			add_message_box("Turn off all .xlsx files first ",window,height=200)
+		if isinstance(ex,PermissionError) or  type(ex).__name__ == "com_error":
+			add_message_box("Turn off all .xlsx files first ",window,width=200)
 			return
-		add_message_box("Error Detect!",window)
 		print(ex)
+		if isinstance(ex,KeyError):
+			add_message_box("some file is broken",window,width=200)
+			return
+		exlogger.write(traceback.format_exc())
+		add_message_box("Error Detect!",window)
 		return
+	finally:
+		app.quit()

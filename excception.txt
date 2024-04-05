@@ -27,3 +27,489 @@ ZeroDivisionError: division by zero
                    ^^^^^^^^^^^^^^^^^
 ValueError: invalid literal for int() with base 10: 'Åá'
 
+2024-04-05 09:11:56.370366 : Traceback (most recent call last):
+  File "C:\Users\toanlk\Desktop\toolexcel\toolexcel\xlsxHelper.py", line 188, in merge_sheet
+    destination_work_book = load_workbook(filename=destination_file)
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\toanlk\scoop\apps\python\current\Lib\site-packages\openpyxl\reader\excel.py", line 346, in load_workbook
+    reader.read()
+  File "C:\Users\toanlk\scoop\apps\python\current\Lib\site-packages\openpyxl\reader\excel.py", line 287, in read
+    self.read_manifest()
+  File "C:\Users\toanlk\scoop\apps\python\current\Lib\site-packages\openpyxl\reader\excel.py", line 134, in read_manifest
+    src = self.archive.read(ARC_CONTENT_TYPES)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\toanlk\scoop\apps\python\current\Lib\zipfile\__init__.py", line 1549, in read
+    with self.open(name, "r", pwd) as fp:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\toanlk\scoop\apps\python\current\Lib\zipfile\__init__.py", line 1586, in open
+    zinfo = self.getinfo(name)
+            ^^^^^^^^^^^^^^^^^^
+  File "C:\Users\toanlk\scoop\apps\python\current\Lib\zipfile\__init__.py", line 1515, in getinfo
+    raise KeyError(
+KeyError: "There is no item named '[Content_Types].xml' in the archive"
+
+2024-04-05 09:12:57.450092 : Traceback (most recent call last):
+  File "C:\Users\toanlk\Desktop\toolexcel\toolexcel\xlsxHelper.py", line 218, in merge_sheet
+    destination_work_book.save(destination_file)
+  File "C:\Users\toanlk\scoop\apps\python\current\Lib\site-packages\openpyxl\workbook\workbook.py", line 386, in save
+    save_workbook(self, filename)
+  File "C:\Users\toanlk\scoop\apps\python\current\Lib\site-packages\openpyxl\writer\excel.py", line 294, in save_workbook
+    writer.save()
+  File "C:\Users\toanlk\scoop\apps\python\current\Lib\site-packages\openpyxl\writer\excel.py", line 275, in save
+    self.write_data()
+  File "C:\Users\toanlk\scoop\apps\python\current\Lib\site-packages\openpyxl\writer\excel.py", line 84, in write_data
+    stylesheet = write_stylesheet(self.workbook)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\toanlk\scoop\apps\python\current\Lib\site-packages\openpyxl\styles\stylesheet.py", line 253, in write_stylesheet
+    xf.alignment = wb._alignments[style.alignmentId]
+                   ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+IndexError: list index out of range
+
+2024-04-05 09:15:06.859028 : Traceback (most recent call last):
+  File "C:\Users\toanlk\Desktop\toolexcel\toolexcel\xlsxHelper.py", line 188, in merge_sheet
+    destination_work_book = load_workbook(filename=destination_file)
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\toanlk\scoop\apps\python\current\Lib\site-packages\openpyxl\reader\excel.py", line 346, in load_workbook
+    reader.read()
+  File "C:\Users\toanlk\scoop\apps\python\current\Lib\site-packages\openpyxl\reader\excel.py", line 287, in read
+    self.read_manifest()
+  File "C:\Users\toanlk\scoop\apps\python\current\Lib\site-packages\openpyxl\reader\excel.py", line 134, in read_manifest
+    src = self.archive.read(ARC_CONTENT_TYPES)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\toanlk\scoop\apps\python\current\Lib\zipfile\__init__.py", line 1549, in read
+    with self.open(name, "r", pwd) as fp:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\toanlk\scoop\apps\python\current\Lib\zipfile\__init__.py", line 1586, in open
+    zinfo = self.getinfo(name)
+            ^^^^^^^^^^^^^^^^^^
+  File "C:\Users\toanlk\scoop\apps\python\current\Lib\zipfile\__init__.py", line 1515, in getinfo
+    raise KeyError(
+KeyError: "There is no item named '[Content_Types].xml' in the archive"
+
+2024-04-05 09:19:59.098627 : Traceback (most recent call last):
+  File "C:\Users\toanlk\Desktop\toolexcel\toolexcel\xlsxHelper.py", line 218, in merge_sheet
+    destination_work_book.save(destination_file)
+  File "C:\Users\toanlk\scoop\apps\python\current\Lib\site-packages\openpyxl\workbook\workbook.py", line 386, in save
+    save_workbook(self, filename)
+  File "C:\Users\toanlk\scoop\apps\python\current\Lib\site-packages\openpyxl\writer\excel.py", line 294, in save_workbook
+    writer.save()
+  File "C:\Users\toanlk\scoop\apps\python\current\Lib\site-packages\openpyxl\writer\excel.py", line 275, in save
+    self.write_data()
+  File "C:\Users\toanlk\scoop\apps\python\current\Lib\site-packages\openpyxl\writer\excel.py", line 84, in write_data
+    stylesheet = write_stylesheet(self.workbook)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\toanlk\scoop\apps\python\current\Lib\site-packages\openpyxl\styles\stylesheet.py", line 253, in write_stylesheet
+    xf.alignment = wb._alignments[style.alignmentId]
+                   ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+IndexError: list index out of range
+
+2024-04-05 09:20:26.542736 : Traceback (most recent call last):
+  File "C:\Users\toanlk\Desktop\toolexcel\toolexcel\xlsxHelper.py", line 218, in merge_sheet
+    destination_work_book.save(destination_file)
+  File "C:\Users\toanlk\scoop\apps\python\current\Lib\site-packages\openpyxl\workbook\workbook.py", line 386, in save
+    save_workbook(self, filename)
+  File "C:\Users\toanlk\scoop\apps\python\current\Lib\site-packages\openpyxl\writer\excel.py", line 294, in save_workbook
+    writer.save()
+  File "C:\Users\toanlk\scoop\apps\python\current\Lib\site-packages\openpyxl\writer\excel.py", line 275, in save
+    self.write_data()
+  File "C:\Users\toanlk\scoop\apps\python\current\Lib\site-packages\openpyxl\writer\excel.py", line 84, in write_data
+    stylesheet = write_stylesheet(self.workbook)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\toanlk\scoop\apps\python\current\Lib\site-packages\openpyxl\styles\stylesheet.py", line 253, in write_stylesheet
+    xf.alignment = wb._alignments[style.alignmentId]
+                   ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+IndexError: list index out of range
+
+2024-04-05 09:22:55.689705 : Traceback (most recent call last):
+  File "C:\Users\toanlk\Desktop\toolexcel\toolexcel\xlsxHelper.py", line 188, in merge_sheet
+    destination_work_book = load_workbook(filename=destination_file)
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\toanlk\scoop\apps\python\current\Lib\site-packages\openpyxl\reader\excel.py", line 346, in load_workbook
+    reader.read()
+  File "C:\Users\toanlk\scoop\apps\python\current\Lib\site-packages\openpyxl\reader\excel.py", line 287, in read
+    self.read_manifest()
+  File "C:\Users\toanlk\scoop\apps\python\current\Lib\site-packages\openpyxl\reader\excel.py", line 134, in read_manifest
+    src = self.archive.read(ARC_CONTENT_TYPES)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\toanlk\scoop\apps\python\current\Lib\zipfile\__init__.py", line 1549, in read
+    with self.open(name, "r", pwd) as fp:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\toanlk\scoop\apps\python\current\Lib\zipfile\__init__.py", line 1586, in open
+    zinfo = self.getinfo(name)
+            ^^^^^^^^^^^^^^^^^^
+  File "C:\Users\toanlk\scoop\apps\python\current\Lib\zipfile\__init__.py", line 1515, in getinfo
+    raise KeyError(
+KeyError: "There is no item named '[Content_Types].xml' in the archive"
+
+2024-04-05 09:41:59.617238 : Traceback (most recent call last):
+  File "C:\Users\toanlk\scoop\apps\python\current\Lib\site-packages\xlwings\_xlwindows.py", line 767, in __call__
+    return Book(xl=self.xl(name_or_index))
+                   ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\toanlk\scoop\apps\python\current\Lib\site-packages\xlwings\_xlwindows.py", line 236, in __call__
+    v = self._inner(*args, **kwargs)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\toanlk\AppData\Local\Temp\gen_py\3.12\00020813-0000-0000-C000-000000000046x0x1x9.py", line 41339, in __call__
+    ret = self._oleobj_.InvokeTypes(0, LCID, 2, (13, 0), ((12, 1),),Index
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+pywintypes.com_error: (-2147352567, 'Exception occurred.', (0, None, None, None, 0, -2147352565), None)
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\toanlk\scoop\apps\python\current\Lib\site-packages\xlwings\main.py", line 5057, in open
+    impl = self.impl(name)
+           ^^^^^^^^^^^^^^^
+  File "C:\Users\toanlk\scoop\apps\python\current\Lib\site-packages\xlwings\_xlwindows.py", line 769, in __call__
+    raise KeyError(name_or_index)
+KeyError: 'test.xlsx'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\toanlk\Desktop\toolexcel\toolexcel\xlsxHelper.py", line 222, in merge_sheet
+    destination_book = app.books.open(destination_file)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\toanlk\scoop\apps\python\current\Lib\site-packages\xlwings\main.py", line 5064, in open
+    impl = self.impl.open(
+           ^^^^^^^^^^^^^^^
+  File "C:\Users\toanlk\scoop\apps\python\current\Lib\site-packages\xlwings\_xlwindows.py", line 800, in open
+    xl=self.xl.Open(
+       ^^^^^^^^^^^^^
+  File "C:\Users\toanlk\scoop\apps\python\current\Lib\site-packages\xlwings\_xlwindows.py", line 122, in __call__
+    v = self.__method(*args, **kwargs)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\toanlk\AppData\Local\Temp\gen_py\3.12\00020813-0000-0000-C000-000000000046x0x1x9.py", line 41216, in Open
+    ret = self._oleobj_.InvokeTypes(1923, LCID, 1, (13, 0), ((8, 1), (12, 17), (12, 17), (12, 17), (12, 17), (12, 17), (12, 17), (12, 17), (12, 17), (12, 17), (12, 17), (12, 17), (12, 17), (12, 17), (12, 17)),Filename
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+pywintypes.com_error: (-2147352567, 'Exception occurred.', (0, 'Microsoft Excel', 'Open method of Workbooks class failed', 'xlmain11.chm', 0, -2146827284), None)
+
+2024-04-05 09:52:53.672765 : Traceback (most recent call last):
+  File "C:\Users\toanlk\Desktop\toolexcel\toolexcel\xlsxHelper.py", line 188, in merge_sheet
+    destination_work_book = load_workbook(filename=destination_file)
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\toanlk\scoop\apps\python\current\Lib\site-packages\openpyxl\reader\excel.py", line 346, in load_workbook
+    reader.read()
+  File "C:\Users\toanlk\scoop\apps\python\current\Lib\site-packages\openpyxl\reader\excel.py", line 287, in read
+    self.read_manifest()
+  File "C:\Users\toanlk\scoop\apps\python\current\Lib\site-packages\openpyxl\reader\excel.py", line 134, in read_manifest
+    src = self.archive.read(ARC_CONTENT_TYPES)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\toanlk\scoop\apps\python\current\Lib\zipfile\__init__.py", line 1549, in read
+    with self.open(name, "r", pwd) as fp:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\toanlk\scoop\apps\python\current\Lib\zipfile\__init__.py", line 1586, in open
+    zinfo = self.getinfo(name)
+            ^^^^^^^^^^^^^^^^^^
+  File "C:\Users\toanlk\scoop\apps\python\current\Lib\zipfile\__init__.py", line 1515, in getinfo
+    raise KeyError(
+KeyError: "There is no item named '[Content_Types].xml' in the archive"
+
+2024-04-05 09:55:09.900246 : Traceback (most recent call last):
+  File "C:\Users\toanlk\Desktop\toolexcel\toolexcel\xlsxHelper.py", line 202, in merge_sheet
+    source = load_workbook(files)
+             ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\toanlk\scoop\apps\python\current\Lib\site-packages\openpyxl\reader\excel.py", line 346, in load_workbook
+    reader.read()
+  File "C:\Users\toanlk\scoop\apps\python\current\Lib\site-packages\openpyxl\reader\excel.py", line 287, in read
+    self.read_manifest()
+  File "C:\Users\toanlk\scoop\apps\python\current\Lib\site-packages\openpyxl\reader\excel.py", line 134, in read_manifest
+    src = self.archive.read(ARC_CONTENT_TYPES)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\toanlk\scoop\apps\python\current\Lib\zipfile\__init__.py", line 1549, in read
+    with self.open(name, "r", pwd) as fp:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\toanlk\scoop\apps\python\current\Lib\zipfile\__init__.py", line 1586, in open
+    zinfo = self.getinfo(name)
+            ^^^^^^^^^^^^^^^^^^
+  File "C:\Users\toanlk\scoop\apps\python\current\Lib\zipfile\__init__.py", line 1515, in getinfo
+    raise KeyError(
+KeyError: "There is no item named '[Content_Types].xml' in the archive"
+
+2024-04-05 09:56:09.890872 : Traceback (most recent call last):
+  File "C:\Users\toanlk\Desktop\toolexcel\toolexcel\xlsxHelper.py", line 202, in merge_sheet
+    source = load_workbook(files)
+             ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\toanlk\scoop\apps\python\current\Lib\site-packages\openpyxl\reader\excel.py", line 346, in load_workbook
+    reader.read()
+  File "C:\Users\toanlk\scoop\apps\python\current\Lib\site-packages\openpyxl\reader\excel.py", line 287, in read
+    self.read_manifest()
+  File "C:\Users\toanlk\scoop\apps\python\current\Lib\site-packages\openpyxl\reader\excel.py", line 134, in read_manifest
+    src = self.archive.read(ARC_CONTENT_TYPES)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\toanlk\scoop\apps\python\current\Lib\zipfile\__init__.py", line 1549, in read
+    with self.open(name, "r", pwd) as fp:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\toanlk\scoop\apps\python\current\Lib\zipfile\__init__.py", line 1586, in open
+    zinfo = self.getinfo(name)
+            ^^^^^^^^^^^^^^^^^^
+  File "C:\Users\toanlk\scoop\apps\python\current\Lib\zipfile\__init__.py", line 1515, in getinfo
+    raise KeyError(
+KeyError: "There is no item named '[Content_Types].xml' in the archive"
+
+2024-04-05 09:56:38.177047 : Traceback (most recent call last):
+  File "C:\Users\toanlk\Desktop\toolexcel\toolexcel\xlsxHelper.py", line 188, in merge_sheet
+    destination_work_book = load_workbook(filename=destination_file)
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\toanlk\scoop\apps\python\current\Lib\site-packages\openpyxl\reader\excel.py", line 346, in load_workbook
+    reader.read()
+  File "C:\Users\toanlk\scoop\apps\python\current\Lib\site-packages\openpyxl\reader\excel.py", line 287, in read
+    self.read_manifest()
+  File "C:\Users\toanlk\scoop\apps\python\current\Lib\site-packages\openpyxl\reader\excel.py", line 134, in read_manifest
+    src = self.archive.read(ARC_CONTENT_TYPES)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\toanlk\scoop\apps\python\current\Lib\zipfile\__init__.py", line 1549, in read
+    with self.open(name, "r", pwd) as fp:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\toanlk\scoop\apps\python\current\Lib\zipfile\__init__.py", line 1586, in open
+    zinfo = self.getinfo(name)
+            ^^^^^^^^^^^^^^^^^^
+  File "C:\Users\toanlk\scoop\apps\python\current\Lib\zipfile\__init__.py", line 1515, in getinfo
+    raise KeyError(
+KeyError: "There is no item named '[Content_Types].xml' in the archive"
+
+2024-04-05 09:58:43.488675 : Traceback (most recent call last):
+  File "C:\Users\toanlk\Desktop\toolexcel\toolexcel\xlsxHelper.py", line 218, in merge_sheet
+    destination_work_book.save(destination_file)
+  File "C:\Users\toanlk\scoop\apps\python\current\Lib\site-packages\openpyxl\workbook\workbook.py", line 386, in save
+    save_workbook(self, filename)
+  File "C:\Users\toanlk\scoop\apps\python\current\Lib\site-packages\openpyxl\writer\excel.py", line 294, in save_workbook
+    writer.save()
+  File "C:\Users\toanlk\scoop\apps\python\current\Lib\site-packages\openpyxl\writer\excel.py", line 275, in save
+    self.write_data()
+  File "C:\Users\toanlk\scoop\apps\python\current\Lib\site-packages\openpyxl\writer\excel.py", line 84, in write_data
+    stylesheet = write_stylesheet(self.workbook)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\toanlk\scoop\apps\python\current\Lib\site-packages\openpyxl\styles\stylesheet.py", line 253, in write_stylesheet
+    xf.alignment = wb._alignments[style.alignmentId]
+                   ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+IndexError: list index out of range
+
+2024-04-05 10:13:16.296243 : Traceback (most recent call last):
+  File "C:\Users\toanlk\Desktop\toolexcel\toolexcel\xlsxHelper.py", line 218, in merge_sheet
+    destination_work_book.save(destination_file)
+  File "C:\Users\toanlk\scoop\apps\python\current\Lib\site-packages\openpyxl\workbook\workbook.py", line 386, in save
+    save_workbook(self, filename)
+  File "C:\Users\toanlk\scoop\apps\python\current\Lib\site-packages\openpyxl\writer\excel.py", line 294, in save_workbook
+    writer.save()
+  File "C:\Users\toanlk\scoop\apps\python\current\Lib\site-packages\openpyxl\writer\excel.py", line 275, in save
+    self.write_data()
+  File "C:\Users\toanlk\scoop\apps\python\current\Lib\site-packages\openpyxl\writer\excel.py", line 84, in write_data
+    stylesheet = write_stylesheet(self.workbook)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\toanlk\scoop\apps\python\current\Lib\site-packages\openpyxl\styles\stylesheet.py", line 253, in write_stylesheet
+    xf.alignment = wb._alignments[style.alignmentId]
+                   ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+IndexError: list index out of range
+
+2024-04-05 10:35:10.432794 : Traceback (most recent call last):
+  File "C:\Users\toanlk\Desktop\toolexcel\toolexcel\xlsxHelper.py", line 218, in merge_sheet
+    destination_work_book.save(destination_file)
+  File "C:\Users\toanlk\scoop\apps\python\current\Lib\site-packages\openpyxl\workbook\workbook.py", line 386, in save
+    save_workbook(self, filename)
+  File "C:\Users\toanlk\scoop\apps\python\current\Lib\site-packages\openpyxl\writer\excel.py", line 294, in save_workbook
+    writer.save()
+  File "C:\Users\toanlk\scoop\apps\python\current\Lib\site-packages\openpyxl\writer\excel.py", line 275, in save
+    self.write_data()
+  File "C:\Users\toanlk\scoop\apps\python\current\Lib\site-packages\openpyxl\writer\excel.py", line 84, in write_data
+    stylesheet = write_stylesheet(self.workbook)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\toanlk\scoop\apps\python\current\Lib\site-packages\openpyxl\styles\stylesheet.py", line 253, in write_stylesheet
+    xf.alignment = wb._alignments[style.alignmentId]
+                   ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+IndexError: list index out of range
+
+2024-04-05 10:37:53.533343 : Traceback (most recent call last):
+  File "C:\Users\toanlk\Desktop\toolexcel\toolexcel\xlsxHelper.py", line 218, in merge_sheet
+    destination_work_book.save(destination_file)
+  File "C:\Users\toanlk\scoop\apps\python\current\Lib\site-packages\openpyxl\workbook\workbook.py", line 386, in save
+    save_workbook(self, filename)
+  File "C:\Users\toanlk\scoop\apps\python\current\Lib\site-packages\openpyxl\writer\excel.py", line 294, in save_workbook
+    writer.save()
+  File "C:\Users\toanlk\scoop\apps\python\current\Lib\site-packages\openpyxl\writer\excel.py", line 275, in save
+    self.write_data()
+  File "C:\Users\toanlk\scoop\apps\python\current\Lib\site-packages\openpyxl\writer\excel.py", line 84, in write_data
+    stylesheet = write_stylesheet(self.workbook)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\toanlk\scoop\apps\python\current\Lib\site-packages\openpyxl\styles\stylesheet.py", line 253, in write_stylesheet
+    xf.alignment = wb._alignments[style.alignmentId]
+                   ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+IndexError: list index out of range
+
+2024-04-05 11:09:35.612005 : Traceback (most recent call last):
+  File "C:\Users\toanlk\Desktop\toolexcel\toolexcel\xlsxHelper.py", line 199, in merge_sheet
+    for file  in file:
+                 ^^^^
+UnboundLocalError: cannot access local variable 'file' where it is not associated with a value
+
+2024-04-05 14:06:19.559038 : Traceback (most recent call last):
+  File "C:\Users\toanlk\Desktop\toolexcel\toolexcel\xlsxHelper.py", line 217, in merge_sheet
+    source.sheets[sheet].copy(name=merge_sheet_name,after=destination_work_book_sheet_book_list.sheets[len(destination_work_book_sheet_book_list.sheets)-1])
+                                                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'list' object has no attribute 'sheets'
+
+2024-04-05 14:22:22.502575 : Traceback (most recent call last):
+  File "C:\Users\toanlk\Desktop\toolexcel\toolexcel\xlsxHelper.py", line 190, in merge_sheet
+    destination_work_book = xw.Book(destination_file)
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\toanlk\AppData\Local\pypoetry\Cache\virtualenvs\toolexcel-LPgENmI_-py3.12\Lib\site-packages\xlwings\main.py", line 928, in __init__
+    impl = app.books.open(
+           ^^^^^^^^^^^^^^^
+  File "C:\Users\toanlk\AppData\Local\pypoetry\Cache\virtualenvs\toolexcel-LPgENmI_-py3.12\Lib\site-packages\xlwings\main.py", line 5049, in open
+    raise FileNotFoundError("No such file: '%s'" % fullname)
+FileNotFoundError: No such file: 'C:/Users/toanlk/Desktop/New folder/demo_merge_sheet/New Microsoft Excel Worksheet.xlsx'
+
+2024-04-05 14:52:29.946826 : Traceback (most recent call last):
+  File "C:\Users\toanlk\Desktop\toolexcel\toolexcel\xlsxHelper.py", line 192, in merge_sheet
+    create_work_book = xw.Book(destination_file)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\toanlk\AppData\Local\pypoetry\Cache\virtualenvs\toolexcel-LPgENmI_-py3.12\Lib\site-packages\xlwings\main.py", line 928, in __init__
+    impl = app.books.open(
+           ^^^^^^^^^^^^^^^
+  File "C:\Users\toanlk\AppData\Local\pypoetry\Cache\virtualenvs\toolexcel-LPgENmI_-py3.12\Lib\site-packages\xlwings\main.py", line 5049, in open
+    raise FileNotFoundError("No such file: '%s'" % fullname)
+FileNotFoundError: No such file: 'C:/Users/toanlk/Desktop/New folder/demo_merge_sheet/freeze_row1.xlsx'
+
+2024-04-05 14:53:55.602639 : Traceback (most recent call last):
+  File "C:\Users\toanlk\Desktop\toolexcel\toolexcel\xlsxHelper.py", line 192, in merge_sheet
+    create_work_book = xw.Book(destination_file)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\toanlk\AppData\Local\pypoetry\Cache\virtualenvs\toolexcel-LPgENmI_-py3.12\Lib\site-packages\xlwings\main.py", line 928, in __init__
+    impl = app.books.open(
+           ^^^^^^^^^^^^^^^
+  File "C:\Users\toanlk\AppData\Local\pypoetry\Cache\virtualenvs\toolexcel-LPgENmI_-py3.12\Lib\site-packages\xlwings\main.py", line 5049, in open
+    raise FileNotFoundError("No such file: '%s'" % fullname)
+FileNotFoundError: No such file: 'C:/Users/toanlk/Desktop/New folder/demo_merge_sheet/freeze_row1.xlsx'
+
+2024-04-05 14:55:48.569639 : Traceback (most recent call last):
+  File "C:\Users\toanlk\Desktop\toolexcel\toolexcel\xlsxHelper.py", line 192, in merge_sheet
+    create_work_book = xw.Book(destination_file)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\toanlk\AppData\Local\pypoetry\Cache\virtualenvs\toolexcel-LPgENmI_-py3.12\Lib\site-packages\xlwings\main.py", line 928, in __init__
+    impl = app.books.open(
+           ^^^^^^^^^^^^^^^
+  File "C:\Users\toanlk\AppData\Local\pypoetry\Cache\virtualenvs\toolexcel-LPgENmI_-py3.12\Lib\site-packages\xlwings\main.py", line 5049, in open
+    raise FileNotFoundError("No such file: '%s'" % fullname)
+FileNotFoundError: No such file: 'C:/Users/toanlk/Desktop/New folder/demo_merge_sheet/freeze_row1.xlsx'
+
+2024-04-05 15:21:34.055417 : Traceback (most recent call last):
+  File "C:\Users\toanlk\Desktop\toolexcel\toolexcel\xlsxHelper.py", line 226, in merge_sheet
+    process_bar_increase_val()
+TypeError: process_bar_merge_increase_val() missing 1 required positional argument: 'value'
+
+2024-04-05 15:34:25.281646 : Traceback (most recent call last):
+  File "C:\Users\toanlk\Desktop\toolexcel\toolexcel\xlsxHelper.py", line 230, in merge_sheet
+    add_message_box("Execute completed", window,lambda:process_bar_increase_val(0))
+  File "C:\Users\toanlk\Desktop\toolexcel\toolexcel\xlsxHelper.py", line 34, in add_message_box
+    top= Toplevel(parent_frame,height=height,width=width)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\toanlk\scoop\apps\python\3.12.0\Lib\tkinter\__init__.py", line 2678, in __init__
+    BaseWidget.__init__(self, master, 'toplevel', cnf, {}, extra)
+  File "C:\Users\toanlk\scoop\apps\python\3.12.0\Lib\tkinter\__init__.py", line 2629, in __init__
+    self.tk.call(
+_tkinter.TclError: bad screen distance "2522205769216<lambda>"
+
+2024-04-05 15:53:25.989791 : Traceback (most recent call last):
+  File "C:\Users\toanlk\Desktop\toolexcel\toolexcel\xlsxHelper.py", line 193, in merge_sheet
+    create_work_book.save(destination_file)
+  File "C:\Users\toanlk\AppData\Local\pypoetry\Cache\virtualenvs\toolexcel-LPgENmI_-py3.12\Lib\site-packages\xlwings\main.py", line 1164, in save
+    self.impl.save(path, password=password)
+  File "C:\Users\toanlk\AppData\Local\pypoetry\Cache\virtualenvs\toolexcel-LPgENmI_-py3.12\Lib\site-packages\xlwings\_xlwindows.py", line 894, in save
+    self.xl.SaveAs(
+  File "C:\Users\toanlk\AppData\Local\pypoetry\Cache\virtualenvs\toolexcel-LPgENmI_-py3.12\Lib\site-packages\xlwings\_xlwindows.py", line 122, in __call__
+    v = self.__method(*args, **kwargs)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\toanlk\AppData\Local\Temp\gen_py\3.12\00020813-0000-0000-C000-000000000046x0x1x9.py", line 46832, in SaveAs
+    return self._oleobj_.InvokeTypes(3174, LCID, 1, (24, 0), ((12, 17), (12, 17), (12, 17), (12, 17), (12, 17), (12, 17), (3, 49), (12, 17), (12, 17), (12, 17), (12, 17), (12, 17), (12, 17)),Filename
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+pywintypes.com_error: (-2147352567, 'Exception occurred.', (0, 'Microsoft Excel', "Cannot access 'Data_Report.xlsx'.", 'xlmain11.chm', 0, -2146827284), None)
+
+2024-04-05 15:53:47.669748 : Traceback (most recent call last):
+  File "C:\Users\toanlk\Desktop\toolexcel\toolexcel\xlsxHelper.py", line 193, in merge_sheet
+    create_work_book.save(destination_file)
+  File "C:\Users\toanlk\AppData\Local\pypoetry\Cache\virtualenvs\toolexcel-LPgENmI_-py3.12\Lib\site-packages\xlwings\main.py", line 1164, in save
+    self.impl.save(path, password=password)
+  File "C:\Users\toanlk\AppData\Local\pypoetry\Cache\virtualenvs\toolexcel-LPgENmI_-py3.12\Lib\site-packages\xlwings\_xlwindows.py", line 894, in save
+    self.xl.SaveAs(
+  File "C:\Users\toanlk\AppData\Local\pypoetry\Cache\virtualenvs\toolexcel-LPgENmI_-py3.12\Lib\site-packages\xlwings\_xlwindows.py", line 122, in __call__
+    v = self.__method(*args, **kwargs)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\toanlk\AppData\Local\Temp\gen_py\3.12\00020813-0000-0000-C000-000000000046x0x1x9.py", line 46832, in SaveAs
+    return self._oleobj_.InvokeTypes(3174, LCID, 1, (24, 0), ((12, 17), (12, 17), (12, 17), (12, 17), (12, 17), (12, 17), (3, 49), (12, 17), (12, 17), (12, 17), (12, 17), (12, 17), (12, 17)),Filename
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+pywintypes.com_error: (-2147352567, 'Exception occurred.', (0, 'Microsoft Excel', "Cannot access 'Data_Report.xlsx'.", 'xlmain11.chm', 0, -2146827284), None)
+
+2024-04-05 15:54:24.674668 : Traceback (most recent call last):
+  File "C:\Users\toanlk\Desktop\toolexcel\toolexcel\xlsxHelper.py", line 193, in merge_sheet
+    create_work_book.save(destination_file)
+  File "C:\Users\toanlk\AppData\Local\pypoetry\Cache\virtualenvs\toolexcel-LPgENmI_-py3.12\Lib\site-packages\xlwings\main.py", line 1164, in save
+    self.impl.save(path, password=password)
+  File "C:\Users\toanlk\AppData\Local\pypoetry\Cache\virtualenvs\toolexcel-LPgENmI_-py3.12\Lib\site-packages\xlwings\_xlwindows.py", line 894, in save
+    self.xl.SaveAs(
+  File "C:\Users\toanlk\AppData\Local\pypoetry\Cache\virtualenvs\toolexcel-LPgENmI_-py3.12\Lib\site-packages\xlwings\_xlwindows.py", line 122, in __call__
+    v = self.__method(*args, **kwargs)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\toanlk\AppData\Local\Temp\gen_py\3.12\00020813-0000-0000-C000-000000000046x0x1x9.py", line 46832, in SaveAs
+    return self._oleobj_.InvokeTypes(3174, LCID, 1, (24, 0), ((12, 17), (12, 17), (12, 17), (12, 17), (12, 17), (12, 17), (3, 49), (12, 17), (12, 17), (12, 17), (12, 17), (12, 17), (12, 17)),Filename
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+pywintypes.com_error: (-2147352567, 'Exception occurred.', (0, 'Microsoft Excel', "Cannot access 'Data_Report.xlsx'.", 'xlmain11.chm', 0, -2146827284), None)
+
+2024-04-05 15:55:52.201476 : Traceback (most recent call last):
+  File "C:\Users\toanlk\Desktop\toolexcel\toolexcel\xlsxHelper.py", line 193, in merge_sheet
+    create_work_book.save(destination_file)
+  File "C:\Users\toanlk\AppData\Local\pypoetry\Cache\virtualenvs\toolexcel-LPgENmI_-py3.12\Lib\site-packages\xlwings\main.py", line 1164, in save
+    self.impl.save(path, password=password)
+  File "C:\Users\toanlk\AppData\Local\pypoetry\Cache\virtualenvs\toolexcel-LPgENmI_-py3.12\Lib\site-packages\xlwings\_xlwindows.py", line 894, in save
+    self.xl.SaveAs(
+  File "C:\Users\toanlk\AppData\Local\pypoetry\Cache\virtualenvs\toolexcel-LPgENmI_-py3.12\Lib\site-packages\xlwings\_xlwindows.py", line 122, in __call__
+    v = self.__method(*args, **kwargs)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\toanlk\AppData\Local\Temp\gen_py\3.12\00020813-0000-0000-C000-000000000046x0x1x9.py", line 46832, in SaveAs
+    return self._oleobj_.InvokeTypes(3174, LCID, 1, (24, 0), ((12, 17), (12, 17), (12, 17), (12, 17), (12, 17), (12, 17), (3, 49), (12, 17), (12, 17), (12, 17), (12, 17), (12, 17), (12, 17)),Filename
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+pywintypes.com_error: (-2147352567, 'Exception occurred.', (0, 'Microsoft Excel', "Cannot access 'Data_Report.xlsx'.", 'xlmain11.chm', 0, -2146827284), None)
+
+2024-04-05 17:27:27.138015 : Traceback (most recent call last):
+  File "C:\Users\toanlk\Desktop\toolexcel\toolexcel\xlsxHelper.py", line 88, in change_data
+    worksheet[update_cell] = update_value
+    ~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\toanlk\AppData\Local\pypoetry\Cache\virtualenvs\toolexcel-LPgENmI_-py3.12\Lib\site-packages\openpyxl\worksheet\worksheet.py", line 318, in __setitem__
+    self[key].value = value
+    ^^^^^^^^^^^^^^^
+AttributeError: 'MergedCell' object attribute 'value' is read-only
+
+2024-04-05 17:31:02.742918 : Traceback (most recent call last):
+  File "C:\Users\toanlk\Desktop\toolexcel\toolexcel\xlsxHelper.py", line 88, in change_data
+    worksheet[update_cell] = update_value
+    ~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\toanlk\AppData\Local\pypoetry\Cache\virtualenvs\toolexcel-LPgENmI_-py3.12\Lib\site-packages\openpyxl\worksheet\worksheet.py", line 318, in __setitem__
+    self[key].value = value
+    ^^^^^^^^^^^^^^^
+AttributeError: 'MergedCell' object attribute 'value' is read-only
+
+2024-04-05 17:32:33.789661 : Traceback (most recent call last):
+  File "C:\Users\toanlk\Desktop\toolexcel\toolexcel\xlsxHelper.py", line 88, in change_data
+    worksheet[update_cell] = update_value
+    ~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\toanlk\AppData\Local\pypoetry\Cache\virtualenvs\toolexcel-LPgENmI_-py3.12\Lib\site-packages\openpyxl\worksheet\worksheet.py", line 318, in __setitem__
+    self[key].value = value
+    ^^^^^^^^^^^^^^^
+AttributeError: 'MergedCell' object attribute 'value' is read-only
+
+2024-04-05 17:33:23.931364 : Traceback (most recent call last):
+  File "C:\Users\toanlk\Desktop\toolexcel\toolexcel\xlsxHelper.py", line 88, in change_data
+    worksheet[update_cell] = update_value
+    ~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\toanlk\AppData\Local\pypoetry\Cache\virtualenvs\toolexcel-LPgENmI_-py3.12\Lib\site-packages\openpyxl\worksheet\worksheet.py", line 318, in __setitem__
+    self[key].value = value
+    ^^^^^^^^^^^^^^^
+AttributeError: 'MergedCell' object attribute 'value' is read-only
+
+2024-04-05 17:33:42.160516 : Traceback (most recent call last):
+  File "C:\Users\toanlk\Desktop\toolexcel\toolexcel\xlsxHelper.py", line 88, in change_data
+    worksheet[update_cell] = update_value
+    ~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\toanlk\AppData\Local\pypoetry\Cache\virtualenvs\toolexcel-LPgENmI_-py3.12\Lib\site-packages\openpyxl\worksheet\worksheet.py", line 318, in __setitem__
+    self[key].value = value
+    ^^^^^^^^^^^^^^^
+AttributeError: 'MergedCell' object attribute 'value' is read-only
+

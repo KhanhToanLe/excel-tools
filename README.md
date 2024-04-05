@@ -22,4 +22,8 @@ Install Tool Excel with pip
 ```bash
   poetry run python index.py
 ```
+## Build
 
+```bash
+  poetry run python setup.py build
+```

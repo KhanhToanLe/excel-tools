@@ -1,5 +1,7 @@
 {
-    "app_name": "No Name",
-    "window_size":"500x600",
-    "prefix_merge":"merge_"
+    "appName": "No Name",
+    "windowSize":"500x600",
+    "prefixMerge":"merge_",
+    "isShowExcelWhileRunning": false,
+    "defaultMergeFileName": "Data_Report.xlsx"
 }

@@ -16,6 +16,9 @@ notebook_control = None
 main_window = ""
 process_bar = None
 process_bar_frame = None 
+process_bar_merge = None
+process_bar_merge_frame = None 
+
 checkbox_frame = None
 old_change_data_execute_value = 1
 destination_file = None
@@ -227,6 +230,17 @@ def process_bar_increase_val(value):
 			process_bar['value'] += value
 	main_window.update_idletasks()
 
+def process_bar_merge_increase_val(value):
+	"""
+	change value for creating processBar animation
+	"""
+	global process_bar_merge
+	if value == 0: process_bar_merge['value'] = value
+	else:
+		if process_bar_merge['value'] < 100:
+			process_bar_merge['value'] += value
+	main_window.update_idletasks()
+
 def display_control_home(control_home_tab):
 	"""
 	display control home tab
@@ -241,6 +255,7 @@ def display_control_home(control_home_tab):
 	takefocus=True, maximum=100)
 	process_bar['value'] = 0
 	process_bar.pack()
+
 
 def	get_change_data_command():
 	"""
@@ -267,7 +282,7 @@ def execute_button_handler():
 	elif select_tab == data.CONTROL_HOME_TAB_NAME:
 		xlsx.control_home(input_directory, chose_sheet_value, main_window, process_bar_increase_val)
 	elif select_tab == data.MERGE_SHEET_TAB_NAME:
-		xlsx.merge_sheet(input_directory,chose_sheet_value,main_window,destination_file.get(),remove_old_merge_sheet_first.get())
+		xlsx.merge_sheet(input_directory,chose_sheet_value,main_window,destination_file.get(),remove_old_merge_sheet_first.get(),process_bar_merge_increase_val)
 
 def choose_destination_file_handler():
 	select_file = tkinter.filedialog.askopenfile(filetypes=[("Excel files", ".xlsx")])
@@ -300,6 +315,16 @@ def display_merge_sheet_tab_content(merge_frame):
 	remove_old_merge_sheet_first = IntVar(value=1)
 	remove_old_merge_sheet_check_box = Checkbutton(choose_file_frame,text="Remove old merge sheet first",variable=remove_old_merge_sheet_first, onvalue=1, offvalue=0,background="white")
 	remove_old_merge_sheet_check_box.pack(side=TOP,fill=X, expand=True )
+
+	global process_bar_merge, process_bar_merge_frame
+
+	process_bar_merge_frame = Frame(merge_container_frame,background='white',pady=104)
+	process_bar_merge_frame.pack(fill=BOTH, expand=True)
+
+	process_bar_merge = ttk.Progressbar(process_bar_merge_frame, orient="horizontal", length=200, mode="determinate",
+	takefocus=True, maximum=100)
+	process_bar_merge['value'] = 0
+	process_bar_merge.pack()
 
 def startup():
 	global main_window
