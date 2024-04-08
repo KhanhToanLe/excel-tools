@@ -28,11 +28,12 @@ remove_old_merge_sheet_first = None
 def create_main_window():
 	"""
 	create main window
-    """
+	"""
 	main_window = Tk()
 	main_window.geometry(HELPER.WINDOW_SIZE)
 	main_window.title(HELPER.APP_NAME)
 	return main_window
+
 
 def select_working_directory(input_directory:Entry):
 	"""
@@ -337,5 +338,4 @@ def startup():
 	display_control_home(ctr_home_tab)
 	display_change_data_execute_selection(window)
 	display_merge_sheet_tab_content(merge_tab)
-
 	return window, change_data_tab, ctr_home_tab,scrollable_frame

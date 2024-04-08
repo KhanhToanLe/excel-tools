@@ -513,3 +513,27 @@ AttributeError: 'MergedCell' object attribute 'value' is read-only
     ^^^^^^^^^^^^^^^
 AttributeError: 'MergedCell' object attribute 'value' is read-only
 
+2024-04-08 09:29:24.554367 : Traceback (most recent call last):
+  File "C:\Users\toanlk\Desktop\toolexcel\toolexcel\xlsxHelper.py", line 93, in change_data
+    merge_update_cell = getMergedCellVal(worksheet[update_cell],worksheet)
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\toanlk\Desktop\toolexcel\toolexcel\xlsxHelper.py", line 22, in getMergedCellVal
+    rng = [s for s in sheet.merged_cells.ranges if cell.coordinate in s]
+                      ^^^^^^^^^^^^^^^^^^
+AttributeError: 'MergedCell' object has no attribute 'merged_cells'
+
+2024-04-08 09:30:37.891121 : Traceback (most recent call last):
+  File "C:\Users\toanlk\Desktop\toolexcel\toolexcel\xlsxHelper.py", line 94, in change_data
+    worksheet[merge_update_cell] = command.value
+    ~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\toanlk\scoop\apps\python\current\Lib\site-packages\openpyxl\worksheet\worksheet.py", line 318, in __setitem__
+    self[key].value = value
+    ~~~~^^^^^
+  File "C:\Users\toanlk\scoop\apps\python\current\Lib\site-packages\openpyxl\worksheet\worksheet.py", line 295, in __getitem__
+    min_col, min_row, max_col, max_row = range_boundaries(key)
+                                         ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\toanlk\scoop\apps\python\current\Lib\site-packages\openpyxl\utils\cell.py", line 133, in range_boundaries
+    m = ABSOLUTE_RE.match(range_string)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: expected string or bytes-like object, got 'Cell'
+

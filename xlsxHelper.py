@@ -12,11 +12,16 @@ import copy
 import traceback
 import exception_logger as exlogger
 import helper
-
+from openpyxl.cell.cell import MergedCell
 alphabet = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M',
 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
 
 merge_sheet_prefix = helper.PREFIX_MERGE
+
+def getMergedCellVal(sheet, cell):
+    rng = [s for s in sheet.merged_cells.ranges if cell.coordinate in s]
+    return sheet.cell(rng[0].min_row, rng[0].min_col) if len(rng)!=0 else cell
+
 
 def get_files(directory):
 	directory = directory.replace("\\","/")
@@ -84,6 +89,10 @@ def change_data(command_list, directory,window, select_sheet):
 							return
 						add_message_box(f"'{update_cell}' isn't a cell",window)
 						return
+					if isinstance(worksheet[update_cell], MergedCell):
+						merge_update_cell = getMergedCellVal(worksheet,worksheet[update_cell])
+						merge_update_cell.value = command.value
+						continue
 					update_value = command.value
 					worksheet[update_cell] = update_value
 			wb.save(file)

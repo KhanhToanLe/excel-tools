@@ -1,7 +1,12 @@
 import xlwings as xw
-# wb = xw.Book('test/freeze_both.xlsx')
-# wb2 = xw.Book("test/freeze_column.xlsx")
-# sheet = wb.sheets[0]
+from openpyxl import *
+from xlsxHelper import *
+wb = xw.Book('test/freeze_both.xlsx')
+
+sheet = wb.sheets[0]
+cur_sheet = sheet["A1"]
+test = parent_of_merged_cell(cur_sheet,sheet)
+print(test)
 
 # #copy within the same sheet
 # sheet.api.Copy(Before=sheet.api)
@@ -11,9 +16,9 @@ import xlwings as xw
 
 # app = xw.App(visible=True)
 # book = xw.Book("test/freeze_both.xlsx")
-path = "test/freeze_both.xlsx"
+# path = "test/freeze_both.xlsx"
 # book2 = xw.Book("test/freeze_column.xlsx")
-path1 = "test/freeze_column.xlsx"
+# path1 = "test/freeze_column.xlsx"
 # sheet2 = book2.sheets[0]
 # sheet = book.sheets[0]
 
@@ -44,5 +49,10 @@ path1 = "test/freeze_column.xlsx"
 # finally:
 #     app.quit()
 
-f = open("test.xlsx", "w")
-f.close()
+
+
+# f = open("test.xlsx", "w")
+# f.close()
+# directory = ""
+# files = get_files(directory)
+# wb = load_workbook(filename = file)
