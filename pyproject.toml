@@ -12,7 +12,7 @@ openpyxl = "^3.1.2"
 xlwings = "^0.31.1"
 cx-freeze = "7.0.0rc0"
 pyinstaller = "6.4.0"
-
+googletrans = "3.1.0a0"
 
 [build-system]
 requires = ["poetry-core"]

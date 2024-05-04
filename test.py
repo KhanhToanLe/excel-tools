@@ -1,12 +1,11 @@
-import xlwings as xw
-from openpyxl import *
-from xlsxHelper import *
-wb = xw.Book('test/freeze_both.xlsx')
+# import xlwings as xw
+# from openpyxl import *
+# from xlsxHelper import *
 
-sheet = wb.sheets[0]
-cur_sheet = sheet["A1"]
-test = parent_of_merged_cell(cur_sheet,sheet)
-print(test)
+# wb = xw.Book('test/freeze_both.xlsx')
+
+# sheet = wb.sheets[0]
+# cur_sheet = sheet["A1"]
 
 # #copy within the same sheet
 # sheet.api.Copy(Before=sheet.api)
@@ -34,7 +33,7 @@ print(test)
 #     first_book = xw.Book(path)
 #     second_book = xw.Book(path1)
 #     first_book.sheets[0]['A1'].value = 'some value'
-    
+
 
 #     # Copy to same Book with the default location and name
 #     first_book.sheets[0].copy()
@@ -51,8 +50,43 @@ print(test)
 
 
 
-# f = open("test.xlsx", "w")
-# f.close()
-# directory = ""
-# files = get_files(directory)
-# wb = load_workbook(filename = file)
+########################################
+# google translate calling api
+
+from googletrans import Translator
+import json
+
+translator = Translator()
+
+VIETNAMESE_DEST_LANG = 'vi'
+ENGLISH_DEST_LANG = 'en'
+JAPANESE_DEST_LANG = 'ja'
+
+f = open("test1.txt", "r")
+test = f.read()
+f.close()
+
+test2 = r'{"g32":"this is what you came for"}'
+
+result = translator.translate(test2, dest=VIETNAMESE_DEST_LANG)
+trans_text = result.text
+
+g = open("test2.txt","w",encoding='utf-8')
+
+g.write(trans_text)
+print(result.extra_data)
+g.close()
+
+
+###########################################
+# read and convert sheet to requested text  for translating api
+# import openpyxl as xl
+
+# wb = xl.load_workbook("test.xlsx")
+
+# all_sheet = wb.sheetnames
+# for sheet in all_sheet:
+#   ws = wb[sheet]
+#   for row in ws:
+#     for cell in row:
+#       print(cell)

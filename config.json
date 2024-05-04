@@ -1,7 +1,13 @@
 {
     "appName": "No Name",
-    "windowSize":"500x600",
-    "prefixMerge":"merge_",
+    "windowSize": "500x600",
+    "prefixMerge": "merge_",
     "isShowExcelWhileRunning": false,
-    "defaultMergeFileName": "Data_Report.xlsx"
+    "defaultMergeFileName": "Data_Report.xlsx",
+    "languageOption": [
+        {
+            "key": "English",
+            "value": "en"
+        }
+    ]
 }
